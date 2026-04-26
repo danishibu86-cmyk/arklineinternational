@@ -1,178 +1,336 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
-<title>ARKLINE — Copper & Aluminium, Mumbai</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<title>ARKLINE — International Metal Trading</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  color-scheme: light only;
-  --white: #FFFFFF;
-  --off: rgba(255,255,255,.75);
-  --muted: rgba(255,255,255,.45);
-  --cu: #D4924A;
-  --ink: #1A1008;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+–cu:   #C8893C;
+–cu2:  #E0A84E;
+–bg:   #141210;
+–ink:  #F5EFE6;
+–ink2: rgba(245,239,230,.68);
+–ink3: rgba(245,239,230,.35);
+–rule: rgba(200,137,60,.18);
 }
-html, body {
-  width:100%; height:100%;
-  overflow-x:hidden; overflow-y:auto;
-  font-family:'Jost', sans-serif;
-  font-weight:300;
-  cursor:none;
-  background:#0E0804;
+
+html,body{
+width:100%;height:100%;
+overflow:hidden;
+background:var(–bg);
+color:var(–ink);
+font-family:‘Outfit’,sans-serif;
+font-weight:300;
+cursor:none;
 }
-#cur { position:fixed;inset:0;z-index:9999;pointer-events:none; }
-#cd { width:7px;height:7px;border-radius:50%;background:#fff;position:absolute;transform:translate(-50%,-50%); }
-#cr {
-  width:30px;height:30px;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.5);
-  position:absolute;transform:translate(-50%,-50%);
-  transition:width .18s,height .18s,border-color .18s;
+
+/* CURSOR */
+#cur{position:fixed;inset:0;z-index:9999;pointer-events:none;}
+#cd{width:5px;height:5px;border-radius:50%;background:var(–cu);position:absolute;transform:translate(-50%,-50%);}
+#cr{width:26px;height:26px;border-radius:50%;border:1px solid rgba(200,137,60,.55);position:absolute;transform:translate(-50%,-50%);transition:all .22s ease;}
+.hov #cr{width:40px;height:40px;background:rgba(200,137,60,.07);}
+
+/* PHOTO BACKGROUND */
+.bg-photos{position:fixed;inset:0;z-index:0;}
+.bg-photo{
+position:absolute;inset:0;
+background-size:cover;
+background-position:center;
+opacity:0;
+transition:opacity 2s ease-in-out;
 }
-.hov #cr { width:46px;height:46px;border-color:var(--cu); }
-.hero-bg {
-  position:fixed;inset:0;z-index:0;
-  background:#0A0604;
-  min-height:100vh;
+.bg-photo.active{opacity:1;}
+
+/* Heavy dark overlay so text reads perfectly */
+.overlay{
+position:fixed;inset:0;z-index:1;pointer-events:none;
+background:
+linear-gradient(
+to bottom,
+rgba(10,8,5,.72) 0%,
+rgba(10,8,5,.55) 30%,
+rgba(10,8,5,.60) 65%,
+rgba(10,8,5,.85) 100%
+);
 }
-.hero-bg::after {
-  content:'';
-  position:absolute;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='800' viewBox='0 0 1400 800'%3E%3Crect width='1400' height='800' fill='%230A0604'/%3E%3Cg opacity='0.045' stroke='%23C8843A' stroke-width='1' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 620 Q200 585 450 592 Q700 600 950 585 Q1150 572 1380 608 L1380 665 Q1050 685 700 678 Q350 671 20 665 Z'/%3E%3Cpath d='M20 620 L20 580 L80 560 L180 555 L180 592'/%3E%3Cpath d='M1380 608 L1380 568 L1320 548 L1220 543 L1220 585'/%3E%3Cpath d='M20 640 Q150 632 300 640 Q450 648 600 640 Q750 632 900 640 Q1050 648 1200 640 Q1300 635 1380 640'/%3E%3Crect x='160' y='532' width='72' height='40'/%3E%3Crect x='240' y='532' width='72' height='40'/%3E%3Crect x='320' y='532' width='72' height='40'/%3E%3Crect x='400' y='532' width='72' height='40'/%3E%3Crect x='480' y='532' width='72' height='40'/%3E%3Crect x='560' y='532' width='72' height='40'/%3E%3Crect x='640' y='532' width='72' height='40'/%3E%3Crect x='720' y='532' width='72' height='40'/%3E%3Crect x='800' y='532' width='72' height='40'/%3E%3Crect x='880' y='532' width='72' height='40'/%3E%3Crect x='960' y='532' width='72' height='40'/%3E%3Crect x='1040' y='532' width='72' height='40'/%3E%3Crect x='1120' y='532' width='72' height='40'/%3E%3Crect x='175' y='492' width='72' height='40'/%3E%3Crect x='255' y='492' width='72' height='40'/%3E%3Crect x='335' y='492' width='72' height='40'/%3E%3Crect x='415' y='492' width='72' height='40'/%3E%3Crect x='495' y='492' width='72' height='40'/%3E%3Crect x='575' y='492' width='72' height='40'/%3E%3Crect x='655' y='492' width='72' height='40'/%3E%3Crect x='735' y='492' width='72' height='40'/%3E%3Crect x='815' y='492' width='72' height='40'/%3E%3Crect x='895' y='492' width='72' height='40'/%3E%3Crect x='975' y='492' width='72' height='40'/%3E%3Crect x='1055' y='492' width='72' height='40'/%3E%3Crect x='190' y='452' width='72' height='40'/%3E%3Crect x='270' y='452' width='72' height='40'/%3E%3Crect x='350' y='452' width='72' height='40'/%3E%3Crect x='430' y='452' width='72' height='40'/%3E%3Crect x='510' y='452' width='72' height='40'/%3E%3Crect x='590' y='452' width='72' height='40'/%3E%3Crect x='670' y='452' width='72' height='40'/%3E%3Crect x='750' y='452' width='72' height='40'/%3E%3Crect x='830' y='452' width='72' height='40'/%3E%3Crect x='910' y='452' width='72' height='40'/%3E%3Crect x='990' y='452' width='72' height='40'/%3E%3Cline x1='155' y1='532' x2='155' y2='320'/%3E%3Cline x1='155' y1='320' x2='560' y2='320'/%3E%3Cline x1='560' y1='320' x2='560' y2='452'/%3E%3Cline x1='155' y1='380' x2='560' y2='380'/%3E%3Cline x1='280' y1='320' x2='280' y2='452'/%3E%3Cline x1='420' y1='320' x2='420' y2='452'/%3E%3Cline x1='155' y1='320' x2='120' y2='250'/%3E%3Cline x1='120' y1='250' x2='560' y2='250'/%3E%3Cline x1='1200' y1='532' x2='1200' y2='330'/%3E%3Cline x1='1200' y1='330' x2='820' y2='330'/%3E%3Cline x1='820' y1='330' x2='820' y2='452'/%3E%3Cline x1='1200' y1='390' x2='820' y2='390'/%3E%3Cline x1='1060' y1='330' x2='1060' y2='452'/%3E%3Cline x1='940' y1='330' x2='940' y2='452'/%3E%3Cline x1='1200' y1='330' x2='1240' y2='260'/%3E%3Cline x1='1240' y1='260' x2='820' y2='260'/%3E%3Ccircle cx='130' cy='180' r='110'/%3E%3Ccircle cx='130' cy='180' r='90'/%3E%3Ccircle cx='130' cy='180' r='70'/%3E%3Ccircle cx='130' cy='180' r='50'/%3E%3Ccircle cx='130' cy='180' r='30'/%3E%3Ccircle cx='130' cy='180' r='12'/%3E%3Cellipse cx='130' cy='180' rx='110' ry='32'/%3E%3Cellipse cx='130' cy='180' rx='90' ry='26'/%3E%3Cellipse cx='130' cy='180' rx='70' ry='20'/%3E%3Ccircle cx='1280' cy='160' r='90'/%3E%3Ccircle cx='1280' cy='160' r='70'/%3E%3Ccircle cx='1280' cy='160' r='50'/%3E%3Ccircle cx='1280' cy='160' r='30'/%3E%3Ccircle cx='1280' cy='160' r='12'/%3E%3Cellipse cx='1280' cy='160' rx='90' ry='28'/%3E%3Cellipse cx='1280' cy='160' rx='70' ry='22'/%3E%3Crect x='580' y='50' width='100' height='22'/%3E%3Crect x='585' y='28' width='90' height='22'/%3E%3Crect x='590' y='6' width='80' height='22'/%3E%3Crect x='700' y='50' width='100' height='22'/%3E%3Crect x='705' y='28' width='90' height='22'/%3E%3Crect x='710' y='6' width='80' height='22'/%3E%3Ccircle cx='700' cy='200' r='120'/%3E%3Cellipse cx='700' cy='200' rx='120' ry='48'/%3E%3Cellipse cx='700' cy='200' rx='50' ry='120'/%3E%3Cline x1='580' y1='200' x2='820' y2='200'/%3E%3Cline x1='700' y1='80' x2='700' y2='320'/%3E%3Cpath d='M620 130 Q700 150 780 130'/%3E%3Cpath d='M600 200 Q700 220 800 200'/%3E%3Cpath d='M620 270 Q700 250 780 270'/%3E%3Cpath d='M0 680 Q100 672 200 680 Q300 688 400 680 Q500 672 600 680 Q700 688 800 680 Q900 672 1000 680 Q1100 688 1200 680 Q1300 672 1400 680'/%3E%3Cpath d='M0 700 Q150 692 300 700 Q450 708 600 700 Q750 692 900 700 Q1050 708 1200 700 Q1300 695 1400 700'/%3E%3Cpath d='M0 720 Q200 712 400 720 Q600 728 800 720 Q1000 712 1200 720 Q1300 716 1400 720'/%3E%3Cpath d='M130 180 Q400 100 700 200 Q1000 300 1280 160' stroke-dasharray='8,6'/%3E%3Ccircle cx='130' cy='180' r='6'/%3E%3Ccircle cx='700' cy='200' r='6'/%3E%3Ccircle cx='1280' cy='160' r='6'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:cover;
-  background-position:center bottom;
+
+/* Grain */
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.025;
+background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 400 400’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=’.8’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘400’ height=‘400’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
+background-size:200px;}
+
+/* SHELL */
+#shell{position:relative;z-index:3;width:100vw;height:100vh;display:flex;flex-direction:column;}
+
+/* HEADER */
+header{
+display:flex;align-items:center;justify-content:space-between;
+padding:0 52px;height:70px;
+border-bottom:1px solid rgba(200,137,60,.12);
+background:rgba(14,11,8,.6);
+backdrop-filter:blur(20px);
+-webkit-backdrop-filter:blur(20px);
 }
-#shell { position:relative;z-index:2;width:100vw;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto; }
-header { display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(10,5,2,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08); }
-.logo-name { font-family:'Jost',sans-serif;font-size:1.1rem;font-weight:500;letter-spacing:.42em;color:#fff;line-height:1; }
-.logo-sub { font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:300;margin-top:5px; }
-.hbtns { display:flex;gap:10px; }
-.btn { font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;font-weight:400;border:none;cursor:none;padding:10px 22px;transition:all .22s ease; }
-.btn-o { background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8); }
-.btn-o:hover { border-color:rgba(255,255,255,.6);color:#fff; }
-.btn-s { background:#fff;color:var(--ink);font-weight:500; }
-.btn-s:hover { background:var(--cu);color:#fff;transform:translateY(-1px);box-shadow:0 6px 22px rgba(212,146,74,.4); }
-.hero { display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 52px;min-height:calc(100vh - 118px); }
-.h-tag { font-size:.58rem;letter-spacing:.38em;text-transform:uppercase;color:var(--cu);font-weight:400;margin-bottom:16px;display:flex;align-items:center;gap:12px; }
-.h-tag::before { content:'';width:32px;height:1px;background:var(--cu);opacity:.7; }
-.h-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,13vw,11rem);line-height:.92;letter-spacing:.04em;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.4); }
-.h-sub { font-size:clamp(.85rem,1.5vw,1.05rem);color:rgba(255,255,255,.65);font-weight:300;line-height:1.7;margin-top:20px;max-width:480px; }
-.h-pills { display:flex;gap:8px;flex-wrap:wrap;margin-top:24px; }
-.pill { font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:300;padding:5px 13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);backdrop-filter:blur(4px);transition:all .22s ease; }
-.pill:hover { background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:#fff; }
-footer { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px 48px;height:60px;background:rgba(10,5,2,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.07); }
-.ft-l { font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);flex-shrink:0; }
-.ft-trust { display:flex;align-items:center;gap:8px; }
-.ft-trust span { font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:300;white-space:nowrap; }
-.ft-dot { width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.18);flex-shrink:0; }
-.bd { position:fixed;inset:0;z-index:200;background:rgba(10,5,2,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s; }
-.bd.on { opacity:1;pointer-events:all; }
-.modal { background:#fff;width:min(580px,94vw);max-height:88vh;overflow-y:auto;position:relative;transform:translateY(10px);transition:transform .28s ease;box-shadow:0 24px 80px rgba(0,0,0,.35); }
-.bd.on .modal { transform:translateY(0); }
-.modal::-webkit-scrollbar { width:3px; }
-.modal::-webkit-scrollbar-thumb { background:#E8DDD0; }
-.m-top { background:#F5EEE6;padding:26px 38px 22px;border-bottom:1px solid rgba(100,65,35,.1); }
-.m-eye { font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cu);font-weight:400;margin-bottom:5px; }
-.m-title { font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:var(--ink);line-height:1.1; }
-.m-x { position:absolute;top:18px;right:22px;background:none;border:none;cursor:none;color:#A08070;font-size:1.35rem;line-height:1;transition:color .15s,transform .2s; }
-.m-x:hover { color:var(--ink);transform:rotate(90deg); }
-.m-body { padding:28px 38px 36px; }
-.ci { display:grid;gap:13px;margin-bottom:22px; }
-.ci-r { display:flex;gap:13px;align-items:center; }
-.ci-ic { width:38px;height:38px;flex-shrink:0;border:1px solid rgba(100,65,35,.12);display:flex;align-items:center;justify-content:center;background:#F5EEE6; }
-.ci-ic svg { width:15px;height:15px;stroke:#9A7050;fill:none;stroke-width:1.5; }
-.ci-l { font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:#A08070;margin-bottom:2px; }
-.ci-v { font-size:.88rem;color:var(--ink);font-weight:300; }
-.fr { margin-bottom:12px; }
-.fl { display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:#A08070;font-weight:300;margin-bottom:5px; }
-.fi,.fta,.fsel { width:100%;background:#FAF6F1;border:1px solid rgba(100,65,35,.14);padding:10px 12px;font-family:'Jost',sans-serif;font-size:.86rem;font-weight:300;color:var(--ink);outline:none;transition:border-color .18s;cursor:none; }
-.fi::placeholder,.fta::placeholder { color:#B0907A; }
-.fi:focus,.fta:focus,.fsel:focus { border-color:var(--cu); }
-.fta { resize:vertical;min-height:78px; }
-.fsel { color:var(--ink);cursor:none; }
-.fsel option { background:#fff; }
-.fg2 { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
-.m-hr { height:1px;background:rgba(100,65,35,.1);margin:18px 0; }
-.sec { font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:#7A5C44;font-weight:400;display:flex;align-items:center;gap:10px;margin:18px 0 11px; }
-.sec::after { content:'';flex:1;height:1px;background:rgba(100,65,35,.1); }
-.cg { display:grid;grid-template-columns:1fr 1fr;gap:7px 14px; }
-.ci2 { display:flex;align-items:center;gap:7px;font-size:.78rem;color:#7A5C44;font-weight:300;cursor:none; }
-.ci2 input { accent-color:var(--cu);cursor:none;width:12px;height:12px; }
-.btn-w { width:100%;padding:13px;font-size:.68rem;letter-spacing:.2em;margin-top:8px; }
-.m-note { font-size:.58rem;color:#B0907A;text-align:center;margin-top:10px;letter-spacing:.1em; }
-.prod-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px; }
-.prod-item { padding:14px 16px;background:#FBF7F2;border:1px solid rgba(100,65,30,.1);border-left:3px solid var(--cu); }
-.prod-name { font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;color:var(--ink);letter-spacing:.04em;margin-bottom:6px; }
-.prod-spec { font-family:'Jost',sans-serif;font-size:.72rem;color:#9A7050;font-weight:300;line-height:1.6; }
-.prod-note { font-family:'Jost',sans-serif;font-size:.65rem;color:#B09070;font-weight:300;line-height:1.7;padding:14px 16px;background:#F5EEE6;border:1px solid rgba(100,65,30,.08);margin-bottom:20px;letter-spacing:.02em; }
+
+.logo{display:flex;flex-direction:column;gap:4px;}
+.logo-name{
+font-family:‘Cormorant Garamond’,serif;
+font-weight:600;font-size:1.45rem;
+letter-spacing:.32em;color:var(–ink);
+}
+.logo-sub{font-size:.5rem;letter-spacing:.34em;text-transform:uppercase;color:var(–ink3);}
+
+.hbtns{display:flex;gap:10px;}
+.btn{
+font-family:‘Outfit’,sans-serif;
+font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;
+font-weight:400;border:none;cursor:none;
+padding:10px 22px;transition:all .24s ease;
+}
+.btn-o{background:transparent;border:1px solid rgba(200,137,60,.3);color:var(–ink2);}
+.btn-o:hover{border-color:var(–cu);color:var(–cu);}
+.btn-s{background:var(–cu);color:#fff;box-shadow:0 0 30px rgba(200,137,60,.25);}
+.btn-s:hover{background:var(–cu2);box-shadow:0 0 50px rgba(200,137,60,.45);transform:translateY(-1px);}
+
+/* HERO — centered */
+.hero{
+flex:1;display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+text-align:center;padding:0 32px;
+position:relative;
+}
+
+/* Subtle top/bottom rules */
+.hero::before,.hero::after{
+content:’’;position:absolute;left:10%;right:10%;height:1px;
+background:linear-gradient(90deg,transparent,rgba(200,137,60,.2),transparent);
+}
+.hero::before{top:16%;}
+.hero::after{bottom:16%;}
+
+.h-sup{
+font-size:.58rem;letter-spacing:.44em;text-transform:uppercase;
+color:var(–cu);font-weight:400;margin-bottom:16px;
+display:flex;align-items:center;gap:14px;
+}
+.h-sup::before,.h-sup::after{content:’’;width:32px;height:1px;background:var(–cu);opacity:.6;}
+
+.h-name{
+font-family:‘Cormorant Garamond’,serif;
+font-weight:600;
+font-size:clamp(5.5rem,15vw,13rem);
+line-height:.88;letter-spacing:.18em;
+/* Metallic shimmer */
+background:linear-gradient(120deg,
+#E8DDD0 0%,#D4A870 15%,#F5EFE6 30%,
+#C8893C 48%,#F5EFE6 63%,#B0C8D0 78%,#E8DDD0 100%
+);
+background-size:250% auto;
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+animation:metalShimmer 7s linear infinite;
+text-shadow:none;
+filter:drop-shadow(0 0 40px rgba(200,137,60,.35)) drop-shadow(0 2px 20px rgba(0,0,0,.8));
+}
+@keyframes metalShimmer{
+0%{background-position:200% center;}
+100%{background-position:-200% center;}
+}
+
+.h-div{display:flex;align-items:center;gap:14px;margin:18px 0 20px;}
+.h-line{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(–cu));}
+.h-line.r{transform:rotate(180deg);}
+.h-dot{width:4px;height:4px;background:var(–cu);transform:rotate(45deg);}
+
+.h-desc{
+font-family:‘Cormorant Garamond’,serif;
+font-style:italic;font-weight:300;
+font-size:clamp(.95rem,1.6vw,1.18rem);
+color:var(–ink2);line-height:1.8;
+max-width:480px;
+}
+
+/* Metal tags */
+.h-tags{display:flex;gap:8px;margin-top:26px;justify-content:center;flex-wrap:nowrap;}
+.tag{
+font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
+color:var(–ink3);font-weight:300;
+padding:7px 16px;
+border:1px solid rgba(200,137,60,.18);
+background:rgba(200,137,60,.04);
+backdrop-filter:blur(8px);
+cursor:none;transition:all .24s ease;
+}
+.tag:hover{border-color:var(–cu);color:var(–cu);background:rgba(200,137,60,.09);}
+
+/* FOOTER */
+footer{
+display:flex;flex-direction:column;align-items:center;
+justify-content:center;gap:7px;
+height:54px;
+border-top:1px solid rgba(200,137,60,.1);
+background:rgba(10,8,5,.65);
+backdrop-filter:blur(20px);
+-webkit-backdrop-filter:blur(20px);
+}
+.ft-certs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center;}
+.ft-certs span{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:var(–ink3);}
+.ft-dot{width:2px;height:2px;border-radius:50%;background:rgba(200,137,60,.35);}
+.ft-copy{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(245,239,230,.15);}
+
+/* MODAL */
+.bd{
+position:fixed;inset:0;z-index:500;
+background:rgba(8,6,3,.8);
+backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+display:flex;align-items:center;justify-content:center;
+opacity:0;pointer-events:none;transition:opacity .28s;
+}
+.bd.on{opacity:1;pointer-events:all;}
+.modal{
+background:#1C1610;
+border:1px solid rgba(200,137,60,.18);
+width:min(600px,94vw);max-height:88vh;overflow-y:auto;
+position:relative;transform:translateY(10px);transition:transform .3s ease;
+box-shadow:0 40px 120px rgba(0,0,0,.85),0 0 60px rgba(200,137,60,.05);
+}
+.bd.on .modal{transform:translateY(0);}
+.modal::-webkit-scrollbar{width:2px;}
+.modal::-webkit-scrollbar-thumb{background:rgba(200,137,60,.28);}
+
+.m-band{padding:26px 38px 22px;border-bottom:1px solid rgba(200,137,60,.1);background:rgba(200,137,60,.04);position:relative;}
+.m-eye{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:var(–cu);font-weight:400;margin-bottom:5px;}
+.m-title{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:600;color:var(–ink);letter-spacing:.04em;}
+.m-x{position:absolute;top:18px;right:22px;background:none;border:none;cursor:none;color:var(–ink3);font-size:1.3rem;line-height:1;transition:color .15s,transform .2s;}
+.m-x:hover{color:var(–cu);transform:rotate(90deg);}
+
+.m-body{padding:26px 38px 34px;}
+.ci{display:grid;gap:13px;margin-bottom:20px;}
+.ci-r{display:flex;gap:13px;align-items:center;}
+.ci-ic{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(200,137,60,.14);display:flex;align-items:center;justify-content:center;background:rgba(200,137,60,.05);}
+.ci-ic svg{width:15px;height:15px;stroke:var(–cu);fill:none;stroke-width:1.5;}
+.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(–ink3);margin-bottom:2px;}
+.ci-v{font-size:.88rem;color:var(–ink);font-weight:300;}
+
+.fr{margin-bottom:12px;}
+.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(–ink3);font-weight:300;margin-bottom:5px;}
+.fi,.fta,.fsel{
+width:100%;background:rgba(255,255,255,.04);
+border:1px solid rgba(200,137,60,.14);padding:10px 13px;
+font-family:‘Outfit’,sans-serif;font-size:.86rem;font-weight:300;
+color:var(–ink);outline:none;transition:border-color .18s;cursor:none;
+}
+.fi::placeholder,.fta::placeholder{color:rgba(245,239,230,.2);}
+.fi:focus,.fta:focus,.fsel:focus{border-color:var(–cu);}
+.fta{resize:vertical;min-height:80px;}
+.fsel{color:var(–ink);cursor:none;}
+.fsel option{background:#1C1610;}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.m-hr{height:1px;background:rgba(200,137,60,.1);margin:18px 0;}
+
+.sec{font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:var(–cu);font-weight:400;display:flex;align-items:center;gap:10px;margin:20px 0 12px;}
+.sec::after{content:’’;flex:1;height:1px;background:rgba(200,137,60,.1);}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;}
+.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(–ink2);font-weight:300;cursor:none;}
+.ci2 input{accent-color:var(–cu);cursor:none;width:12px;height:12px;}
+
+.btn-w{width:100%;padding:13px;font-size:.68rem;letter-spacing:.18em;margin-top:10px;}
+.m-note{font-size:.58rem;color:var(–ink3);text-align:center;margin-top:10px;letter-spacing:.08em;}
+
+.success{display:none;text-align:center;padding:40px 20px;}
+.success-check{width:54px;height:54px;border-radius:50%;border:1.5px solid var(–cu);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(–cu);font-size:1.4rem;}
+.success-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:600;color:var(–ink);margin-bottom:8px;}
+.success-sub{font-size:.85rem;color:var(–ink3);font-weight:300;line-height:1.7;}
+
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.prod-card{padding:14px 16px;border:1px solid rgba(200,137,60,.12);border-left:2px solid var(–cu);background:rgba(200,137,60,.04);}
+.prod-name{font-size:.78rem;font-weight:500;color:var(–ink);letter-spacing:.04em;margin-bottom:5px;}
+.prod-spec{font-size:.7rem;color:var(–ink3);font-weight:300;line-height:1.6;}
+.prod-note{font-size:.62rem;color:var(–ink3);border:1px solid rgba(200,137,60,.1);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
+
 @media(max-width:768px){
-  header{padding:0 20px;height:60px;}
-  .logo-name{font-size:.95rem;letter-spacing:.22em;}
-  .btn{padding:8px 14px;font-size:.58rem;letter-spacing:.1em;}
-  .hero{padding:0 20px 40px;min-height:calc(100vh - 108px);}
-  .h-pills{flex-wrap:nowrap;gap:6px;}
-  .pill{text-align:center;padding:6px 8px;font-size:.46rem;flex:1;}
-  footer{height:auto;padding:12px 20px;flex-direction:column;gap:6px;text-align:center;}
-  .ft-trust{flex-wrap:wrap;justify-content:center;gap:6px;}
-  .ft-trust span{font-size:.46rem;}
-  .modal{padding:0;}
-  .m-top{padding:20px 22px 16px;}
-  .m-title{font-size:1.35rem;}
-  .m-body{padding:20px 22px 28px;}
-  .fg2{grid-template-columns:1fr;}
-  .cg{grid-template-columns:1fr;}
-  .prod-grid{grid-template-columns:1fr;}
+header{padding:0 20px;height:62px;}
+.logo-name{font-size:1.15rem;letter-spacing:.22em;}
+.btn{padding:8px 13px;font-size:.6rem;}
+.hero{padding:0 20px;}
+.h-tags{gap:5px;}
+.tag{padding:6px 10px;font-size:.5rem;}
+footer{height:auto;padding:10px 20px;}
+.m-band{padding:18px 20px 14px;}
+.m-body{padding:18px 20px 26px;}
+.fg2{grid-template-columns:1fr;}
+.cg{grid-template-columns:1fr;}
+.prod-grid{grid-template-columns:1fr;}
 }
 </style>
+
 </head>
 <body>
 
 <div id="cur"><div id="cd"></div><div id="cr"></div></div>
-<div class="hero-bg"></div>
+<div class="bg-photos">
+  <!-- Real photos: copper coils, cargo ship, aluminium ingots, globe/world map -->
+  <div class="bg-photo active" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=90');"></div>
+  <div class="bg-photo" style="background-image:url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=90');"></div>
+  <div class="bg-photo" style="background-image:url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=90');"></div>
+  <div class="bg-photo" style="background-image:url('https://images.unsplash.com/photo-1494961104209-3c223057bd26?w=1600&q=90');"></div>
+</div>
+<div class="overlay"></div>
+<div class="grain"></div>
 
 <div id="shell">
   <header>
     <div class="logo">
       <div class="logo-name">ARKLINE</div>
-      <div class="logo-sub">India</div>
+      <div class="logo-sub">Mumbai, India</div>
     </div>
     <div class="hbtns">
-      <button class="btn btn-o" onclick="open_('ct')">Contact Us</button>
-      <button class="btn btn-s" onclick="open_('rfq')">Request Quotation</button>
+      <button class="btn btn-o" onclick="show('ct')">Contact Us</button>
+      <button class="btn btn-s" onclick="show('rfq')">Request Quotation</button>
     </div>
   </header>
 
   <main class="hero">
-    <div class="h-tag">International Metal Trading</div>
-    <h1 class="h-title">ARKLINE</h1>
-    <p class="h-sub">Sourcing copper and aluminium from the world's finest producers, trusted by manufacturers across India.</p>
-    <div class="h-pills">
-      <div class="pill" onclick="openProduct('copper')">Copper</div>
-      <div class="pill" onclick="openProduct('aluminium')">Aluminium</div>
-      <div class="pill" onclick="openProduct('brass')">Brass</div>
-      <div class="pill" onclick="openProduct('nickel')">Nickel</div>
+    <div class="h-sup">International Metal Trading</div>
+    <h1 class="h-name">ARKLINE</h1>
+    <div class="h-div">
+      <div class="h-line"></div><div class="h-dot"></div><div class="h-line r"></div>
+    </div>
+    <p class="h-desc">
+      Sourcing copper and aluminium from the world's finest producers,<br>
+      trusted by manufacturers across India.
+    </p>
+    <div class="h-tags">
+      <div class="tag" onclick="showProduct('copper')">Copper</div>
+      <div class="tag" onclick="showProduct('aluminium')">Aluminium</div>
+      <div class="tag" onclick="showProduct('brass')">Brass</div>
+      <div class="tag" onclick="showProduct('nickel')">Nickel</div>
     </div>
   </main>
 
   <footer>
-    <div class="ft-trust">
+    <div class="ft-certs">
       <span>Certificate of Origin</span><div class="ft-dot"></div>
       <span>Certificate of Analysis</span><div class="ft-dot"></div>
-      <span>NABL Accredited Lab Testing</span><div class="ft-dot"></div>
-      <span>SGS / Bureau Veritas Inspected</span>
+      <span>NABL Lab Testing</span><div class="ft-dot"></div>
+      <span>SGS / Bureau Veritas</span>
     </div>
-    <div class="ft-l">© 2025 Arkline International Pvt. Ltd. · Mumbai</div>
+    <div class="ft-copy">© 2025 Arkline International Pvt. Ltd. · Mumbai</div>
   </footer>
 </div>
 
 <!-- CONTACT -->
-<div class="bd" id="md-ct">
-<div class="modal">
-  <button class="m-x" onclick="close_('ct')">×</button>
-  <div class="m-top"><div class="m-eye">Reach Out</div><div class="m-title">Contact Us</div></div>
+
+<div class="bd" id="md-ct"><div class="modal">
+  <div class="m-band">
+    <button class="m-x" onclick="hide('ct')">×</button>
+    <div class="m-eye">Get In Touch</div><div class="m-title">Contact Us</div>
+  </div>
   <div class="m-body">
     <div class="ci">
       <div class="ci-r"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div><div><div class="ci-l">Phone &amp; WhatsApp</div><div class="ci-v">+91 88989 81378</div></div></div>
@@ -180,181 +338,154 @@ footer { display:flex;flex-direction:column;align-items:center;justify-content:c
       <div class="ci-r"><div class="ci-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><div><div class="ci-l">GST Number</div><div class="ci-v">27ABECA7145G1ZO</div></div></div>
     </div>
     <div class="m-hr"></div>
-    <form action="https://formspree.io/f/maqakpny" method="POST">
+    <div class="success" id="ct-ok"><div class="success-check">✓</div><div class="success-title">Message Sent</div><div class="success-sub">We'll respond within 24 hours.</div></div>
+    <form id="ct-form">
       <div class="fg2">
-        <div class="fr"><label class="fl">Your Name</label><input class="fi" type="text" name="name" placeholder="Full name" required></div>
+        <div class="fr"><label class="fl">Name</label><input class="fi" type="text" name="name" placeholder="Your name" required></div>
         <div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="your@email.com" required></div>
       </div>
-      <div class="fr"><label class="fl">Message</label><textarea class="fta" name="message" placeholder="How can we help you?"></textarea></div>
+      <div class="fr"><label class="fl">Message</label><textarea class="fta" name="message" placeholder="How can we help?"></textarea></div>
       <button type="submit" class="btn btn-s btn-w">Send Message</button>
     </form>
   </div>
-</div>
-</div>
+</div></div>
 
 <!-- RFQ -->
-<div class="bd" id="md-rfq">
-<div class="modal">
-  <button class="m-x" onclick="close_('rfq')">×</button>
-  <div class="m-top"><div class="m-eye">Trade Inquiry</div><div class="m-title">Request a Quotation</div></div>
+
+<div class="bd" id="md-rfq"><div class="modal">
+  <div class="m-band">
+    <button class="m-x" onclick="hide('rfq')">×</button>
+    <div class="m-eye">Trade Inquiry</div><div class="m-title">Request a Quotation</div>
+  </div>
   <div class="m-body">
-    <form action="https://formspree.io/f/maqakpny" method="POST">
-    <input type="hidden" name="_subject" value="New Quotation Request — Arkline International">
-    <div class="fg2">
-      <div class="fr"><label class="fl">Company</label><input class="fi" type="text" name="company" placeholder="Company name" required></div>
-      <div class="fr"><label class="fl">Contact Person</label><input class="fi" type="text" name="name" placeholder="Full name" required></div>
-    </div>
-    <div class="fg2">
-      <div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="Email address" required></div>
-      <div class="fr"><label class="fl">WhatsApp / Phone</label><input class="fi" type="tel" name="phone" placeholder="+91 …"></div>
-    </div>
-    <div class="sec">Copper</div>
-    <div class="cg">
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes Grade A 99.99%"> Cathodes — Grade A (99.99%)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes EQ Grade 99.97%"> Cathodes — EQ Grade (99.97%)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Wire Rod CCR ETP"> Wire Rod — CCR / ETP</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Wire Rod OFHC"> Wire Rod — OFHC (Oxygen-Free)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Tubes and Pipes"> Tubes &amp; Pipes</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Scrap Millberry"> Scrap — Millberry (ISRI Berry)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Scrap No1"> Scrap — No.1 Copper (ISRI Candy)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Copper Sheets Plates Strips"> Sheets, Plates, Strips, Slabs</label>
-    </div>
-    <div class="sec">Aluminium</div>
-    <div class="cg">
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Primary Ingots P1020"> Primary Ingots — P1020 (LME)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Primary Ingots A7"> Primary Ingots — A7 (99.7%)</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Billets Slabs Wire Rods"> Ingots, Billets, Slabs, Wire Rods</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Sheets Coils Extrusions"> Sheets, Coils &amp; Extrusions</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Foils"> Foils</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Scrap ISRI Tense"> Scrap — ISRI Tense</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Foundry Alloy ADC12"> Foundry Alloy — ADC12 / A380</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Aluminium Foundry Alloy A356"> Foundry Alloy — A356 / AlSi7Mg</label>
-    </div>
-    <div class="sec">Brass</div>
-    <div class="cg">
-      <label class="ci2"><input type="checkbox" name="product" value="Brass Wires"> Brass Wires</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Brass Rods"> Brass Rods</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Brass Strips"> Brass Strips</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Brass Scrap ISRI Honey"> Scrap — ISRI Honey</label>
-    </div>
-    <div class="sec">Nickel</div>
-    <div class="cg">
-      <label class="ci2"><input type="checkbox" name="product" value="Refined Nickel"> Refined Nickel</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Ferronickel"> Ferronickel</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Nickel Pig Iron"> Nickel Pig Iron</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Nickel Matte"> Nickel Matte</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Nickel Alloys"> Nickel Alloys</label>
-      <label class="ci2"><input type="checkbox" name="product" value="Nickel Scrap"> Nickel-bearing Scrap</label>
-    </div>
-    <div class="sec">Shipment Details</div>
-    <div class="fg2">
-      <div class="fr"><label class="fl">Monthly Quantity (MT)</label>
-        <select class="fsel" name="quantity">
-          <option value="">Select quantity…</option>
-          <option>2 – 5 MT</option><option>5 – 10 MT</option>
-          <option>10 – 25 MT</option><option>25 – 50 MT</option>
-          <option>50 – 100 MT</option><option>100+ MT</option>
-        </select>
+    <div class="success" id="rfq-ok"><div class="success-check">✓</div><div class="success-title">Request Received</div><div class="success-sub">Our team responds within 24 hours.</div></div>
+    <form id="rfq-form">
+      <div class="fg2">
+        <div class="fr"><label class="fl">Company</label><input class="fi" type="text" name="company" placeholder="Company name" required></div>
+        <div class="fr"><label class="fl">Contact Person</label><input class="fi" type="text" name="name" placeholder="Full name" required></div>
       </div>
-      <div class="fr"><label class="fl">Frequency</label>
-        <select class="fsel" name="frequency">
-          <option value="">Select…</option>
-          <option>One-time Purchase</option><option>Monthly Supply</option>
-          <option>Quarterly</option><option>Annual Contract</option>
-        </select>
+      <div class="fg2">
+        <div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="Email" required></div>
+        <div class="fr"><label class="fl">WhatsApp / Phone</label><input class="fi" type="tel" name="phone" placeholder="+91 …"></div>
       </div>
-    </div>
-    <div class="fg2">
-      <div class="fr"><label class="fl">Expected Price (USD / MT)</label><input class="fi" type="text" name="expected_price" placeholder="Your target price"></div>
-      <div class="fr"><label class="fl">Delivery Destination</label><input class="fi" type="text" name="delivery" placeholder="City or port, India"></div>
-    </div>
-    <div class="fr"><label class="fl">Additional Specifications</label><textarea class="fta" name="specifications" style="min-height:60px" placeholder="Purity, certifications, Incoterms, payment terms…"></textarea></div>
-    <button type="submit" class="btn btn-s btn-w">Submit Quotation Request</button>
-    <p class="m-note">We respond within 24 hours · Monthly capacity 2 – 100 MT · Mumbai</p>
+      <div class="sec">Copper</div>
+      <div class="cg">
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes Grade A"> Cathodes — Grade A (99.99%)</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes EQ Grade"> Cathodes — EQ Grade (99.97%)</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Sheets Plates Strips"> Cathode, Sheets, Plates, Strips</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Wire Rod CCR ETP"> Wire Rod — CCR / ETP</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Wire Rod OFHC"> Wire Rod — OFHC</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Tubes Pipes"> Tubes &amp; Pipes</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Scrap Millberry Berry"> Scrap — Millberry / Berry</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Copper Concentrate"> Copper Concentrate</label>
+      </div>
+      <div class="sec">Aluminium</div>
+      <div class="cg">
+        <label class="ci2"><input type="checkbox" name="product" value="Aluminium P1020 LME"> Primary Ingots — P1020</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Aluminium A7 99.7%"> Primary Ingots — A7 (99.7%)</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Aluminium Billets Slabs Rods"> Billets, Slabs, Wire Rods</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Aluminium Sheets Coils Extrusions"> Sheets, Coils, Extrusions</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Aluminium Foils"> Foils</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Aluminium Scrap ISRI Tense"> Scrap — ISRI Tense</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Foundry Alloy ADC12 A380"> Foundry Alloy — ADC12/A380</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Foundry Alloy A356"> Foundry Alloy — A356</label>
+      </div>
+      <div class="sec">Brass &amp; Nickel</div>
+      <div class="cg">
+        <label class="ci2"><input type="checkbox" name="product" value="Brass Wires Rods Strips"> Brass Wires, Rods, Strips</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Brass Scrap ISRI Honey"> Brass Scrap — ISRI Honey</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Refined Nickel LME"> Refined Nickel (LME)</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Ferronickel NPI Matte Alloys"> Ferronickel / NPI / Alloys</label>
+        <label class="ci2"><input type="checkbox" name="product" value="Nickel Bearing Scrap"> Nickel-bearing Scrap</label>
+      </div>
+      <div class="sec">Shipment</div>
+      <div class="fg2">
+        <div class="fr"><label class="fl">Quantity (MT/Month)</label>
+          <select class="fsel" name="quantity"><option value="">Select…</option><option>2–5 MT</option><option>5–10 MT</option><option>10–25 MT</option><option>25–50 MT</option><option>50–100 MT</option><option>100+ MT</option></select>
+        </div>
+        <div class="fr"><label class="fl">Frequency</label>
+          <select class="fsel" name="frequency"><option value="">Select…</option><option>One-time</option><option>Monthly</option><option>Quarterly</option><option>Annual Contract</option></select>
+        </div>
+      </div>
+      <div class="fg2">
+        <div class="fr"><label class="fl">Expected Price (USD/MT)</label><input class="fi" type="text" name="price" placeholder="Target price"></div>
+        <div class="fr"><label class="fl">Delivery Destination</label><input class="fi" type="text" name="delivery" placeholder="City or port, India"></div>
+      </div>
+      <div class="fr"><label class="fl">Specifications</label><textarea class="fta" name="specs" style="min-height:58px" placeholder="Purity, certifications, Incoterms…"></textarea></div>
+      <button type="submit" class="btn btn-s btn-w">Submit Quotation Request</button>
+      <p class="m-note">Response within 24 hours · Mumbai, India</p>
     </form>
   </div>
-</div>
-</div>
+</div></div>
 
-<!-- COPPER -->
-<div class="bd" id="md-copper">
-<div class="modal">
-  <div class="m-top"><button class="m-x" onclick="close_('copper')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Copper</div></div>
-  <div class="m-body">
-    <p style="font-family:'Jost',sans-serif;font-size:.88rem;color:#6A4E32;font-weight:300;line-height:1.75;margin-bottom:24px;">We source and import the highest grades of copper directly from certified global producers — delivered to your facility across India.</p>
-    <div class="prod-grid">
-      <div class="prod-item"><div class="prod-name">Copper Cathodes</div><div class="prod-spec">Grade A — 99.99% pure</div><div class="prod-spec">EQ Grade — 99.97%</div></div>
-      <div class="prod-item"><div class="prod-name">Wire Rod</div><div class="prod-spec">CCR / ETP grade</div><div class="prod-spec">OFHC (Oxygen-Free)</div></div>
-      <div class="prod-item"><div class="prod-name">Sheets, Plates &amp; Strips</div><div class="prod-spec">Various gauges &amp; tempers</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Copper Scrap</div><div class="prod-spec">ISRI Berry — Millberry (~99%)</div><div class="prod-spec">ISRI Candy — No.1 Copper</div></div>
-    </div>
-    <div class="prod-note">Monthly capacity: 2 MT – 100 MT · Certificate of Analysis (COA) provided · SGS / Bureau Veritas inspection available</div>
-    <button class="btn btn-s btn-w" onclick="close_('copper');open_('rfq');">Request a Quotation</button>
-  </div>
-</div>
-</div>
+<!-- PRODUCT SHEETS -->
 
-<!-- ALUMINIUM -->
-<div class="bd" id="md-aluminium">
-<div class="modal">
-  <div class="m-top"><button class="m-x" onclick="close_('aluminium')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Aluminium</div></div>
+<div class="bd" id="md-copper"><div class="modal">
+  <div class="m-band"><button class="m-x" onclick="hide('copper')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Copper</div></div>
   <div class="m-body">
-    <p style="font-family:'Jost',sans-serif;font-size:.88rem;color:#6A4E32;font-weight:300;line-height:1.75;margin-bottom:24px;">We import primary aluminium in all major forms — direct from global smelters, serving manufacturers, foundries and fabricators across India.</p>
+    <p style="font-size:.86rem;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:20px;">LME-registered, SGS-verified copper from certified global producers, delivered across India.</p>
     <div class="prod-grid">
-      <div class="prod-item"><div class="prod-name">Primary Ingots</div><div class="prod-spec">P1020 — LME Grade</div><div class="prod-spec">A7 — 99.7% purity</div></div>
-      <div class="prod-item"><div class="prod-name">Billets &amp; Slabs</div><div class="prod-spec">Primary aluminium</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Sheets, Coils &amp; Foils</div><div class="prod-spec">Extrusions also available</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Aluminium Scrap</div><div class="prod-spec">ISRI Tense — 90–95% Al</div><div class="prod-spec">Foundry Alloys ADC12 / A356</div></div>
+      <div class="prod-card"><div class="prod-name">Cathodes</div><div class="prod-spec">Grade A — 99.99%<br>EQ Grade — 99.97%</div></div>
+      <div class="prod-card"><div class="prod-name">Sheets &amp; Plates</div><div class="prod-spec">99.9% pure, non-scrap<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Wire Rods</div><div class="prod-spec">CCR / ETP cast<br>OFHC Oxygen-Free</div></div>
+      <div class="prod-card"><div class="prod-name">Copper Scrap</div><div class="prod-spec">ISRI Berry — 99% Cu<br>Millberry — bare bright</div></div>
     </div>
-    <div class="prod-note">Monthly capacity: 2 MT – 100 MT · Mill Test Report (MTR) provided · SGS / Bureau Veritas inspection available</div>
-    <button class="btn btn-s btn-w" onclick="close_('aluminium');open_('rfq');">Request a Quotation</button>
+    <div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div>
+    <button class="btn btn-s btn-w" onclick="hide('copper');show('rfq')">Request Quotation</button>
   </div>
-</div>
-</div>
+</div></div>
 
-<!-- BRASS -->
-<div class="bd" id="md-brass">
-<div class="modal">
-  <div class="m-top"><button class="m-x" onclick="close_('brass')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Brass</div></div>
+<div class="bd" id="md-aluminium"><div class="modal">
+  <div class="m-band"><button class="m-x" onclick="hide('aluminium')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Aluminium</div></div>
   <div class="m-body">
-    <p style="font-family:'Jost',sans-serif;font-size:.88rem;color:#6A4E32;font-weight:300;line-height:1.75;margin-bottom:24px;">We supply brass in wrought and scrap form — sourced from certified global producers, imported directly into India.</p>
+    <p style="font-size:.86rem;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:20px;">Primary aluminium from global smelters — serving manufacturers and foundries pan-India.</p>
     <div class="prod-grid">
-      <div class="prod-item"><div class="prod-name">Brass Rods</div><div class="prod-spec">Free-cutting &amp; standard grades</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Brass Wires</div><div class="prod-spec">Various gauges &amp; tempers</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Brass Strips</div><div class="prod-spec">Various widths &amp; thickness</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Brass Scrap</div><div class="prod-spec">ISRI Honey — Yellow brass</div><div class="prod-spec">Copper-Zinc alloy</div></div>
+      <div class="prod-card"><div class="prod-name">Primary Ingots</div><div class="prod-spec">P1020 — LME Grade<br>A7 — 99.7%</div></div>
+      <div class="prod-card"><div class="prod-name">Billets &amp; Slabs</div><div class="prod-spec">Wire rods, extrusions<br>Non-scrap, primary</div></div>
+      <div class="prod-card"><div class="prod-name">Sheets &amp; Coils</div><div class="prod-spec">Foils also available<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Al Scrap</div><div class="prod-spec">ISRI Tense — 90–95%<br>Mixed aluminium</div></div>
     </div>
-    <div class="prod-note">Monthly capacity: 2 MT – 100 MT · COA provided · SGS / Bureau Veritas inspection available</div>
-    <button class="btn btn-s btn-w" onclick="close_('brass');open_('rfq');">Request a Quotation</button>
+    <div class="prod-note">2–100 MT/month · MTR · SGS / BV inspection available</div>
+    <button class="btn btn-s btn-w" onclick="hide('aluminium');show('rfq')">Request Quotation</button>
   </div>
-</div>
-</div>
+</div></div>
 
-<!-- NICKEL -->
-<div class="bd" id="md-nickel">
-<div class="modal">
-  <div class="m-top"><button class="m-x" onclick="close_('nickel')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Nickel</div></div>
+<div class="bd" id="md-brass"><div class="modal">
+  <div class="m-band"><button class="m-x" onclick="hide('brass')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Brass</div></div>
   <div class="m-body">
-    <p style="font-family:'Jost',sans-serif;font-size:.88rem;color:#6A4E32;font-weight:300;line-height:1.75;margin-bottom:24px;">We import primary and secondary nickel products from global producers — delivered to Indian industry.</p>
     <div class="prod-grid">
-      <div class="prod-item"><div class="prod-name">Refined Nickel</div><div class="prod-spec">LME Grade — min 99.8% Ni</div><div class="prod-spec">Full plates, cut cathodes, pellets</div></div>
-      <div class="prod-item"><div class="prod-name">Ferronickel (FeNi)</div><div class="prod-spec">Ni content 15–40%</div><div class="prod-spec">For stainless steel production</div></div>
-      <div class="prod-item"><div class="prod-name">Nickel Pig Iron</div><div class="prod-spec">Low-grade: 1.5–6% Ni</div><div class="prod-spec">High-grade: 8–15% Ni</div></div>
-      <div class="prod-item"><div class="prod-name">Nickel Alloys</div><div class="prod-spec">Inconel, Monel, Hastelloy</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Nickel Matte</div><div class="prod-spec">Intermediate smelter product</div><div class="prod-spec">As per specification</div></div>
-      <div class="prod-item"><div class="prod-name">Nickel-bearing Scrap</div><div class="prod-spec">Stainless steel scrap with Ni</div><div class="prod-spec">As per composition</div></div>
+      <div class="prod-card"><div class="prod-name">Brass Scrap</div><div class="prod-spec">ISRI Honey — Cu-Zn<br>As per grade</div></div>
+      <div class="prod-card"><div class="prod-name">Brass Rods</div><div class="prod-spec">Free-cutting grades<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Brass Wires</div><div class="prod-spec">Various gauges<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Brass Strips</div><div class="prod-spec">Various widths<br>As per specification</div></div>
     </div>
-    <div class="prod-note">Monthly capacity: 2 MT – 100 MT · COA provided · SGS / Bureau Veritas inspection available</div>
-    <button class="btn btn-s btn-w" onclick="close_('nickel');open_('rfq');">Request a Quotation</button>
+    <div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div>
+    <button class="btn btn-s btn-w" onclick="hide('brass');show('rfq')">Request Quotation</button>
   </div>
-</div>
-</div>
+</div></div>
+
+<div class="bd" id="md-nickel"><div class="modal">
+  <div class="m-band"><button class="m-x" onclick="hide('nickel')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Nickel</div></div>
+  <div class="m-body">
+    <div class="prod-grid">
+      <div class="prod-card"><div class="prod-name">Refined Nickel</div><div class="prod-spec">LME — 99.8% Ni min<br>Plates, cathodes</div></div>
+      <div class="prod-card"><div class="prod-name">Ferronickel</div><div class="prod-spec">Ni 15–40%<br>Stainless production</div></div>
+      <div class="prod-card"><div class="prod-name">Nickel Pig Iron</div><div class="prod-spec">Low/High grade<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Nickel Alloys</div><div class="prod-spec">Inconel, Monel, Hastelloy<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Nickel Matte</div><div class="prod-spec">Smelter intermediate<br>As per specification</div></div>
+      <div class="prod-card"><div class="prod-name">Ni Scrap</div><div class="prod-spec">SS scrap with Ni<br>As per composition</div></div>
+    </div>
+    <div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div>
+    <button class="btn btn-s btn-w" onclick="hide('nickel');show('rfq')">Request Quotation</button>
+  </div>
+</div></div>
 
 <script>
+/* CURSOR */
 const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-document.querySelectorAll('button,a,input,select,textarea,label').forEach(el=>{
+document.querySelectorAll('button,a,input,select,textarea,label,.tag').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
 });
@@ -364,15 +495,51 @@ document.querySelectorAll('button,a,input,select,textarea,label').forEach(el=>{
   cr.style.left=rx+'px';cr.style.top=ry+'px';
   requestAnimationFrame(loop);
 })();
-function open_(id){document.getElementById('md-'+id).classList.add('on');}
-function close_(id){document.getElementById('md-'+id).classList.remove('on');}
-function openProduct(metal){open_(metal);}
+
+
+/* PHOTO CROSSFADE */
+(function(){
+  const photos = document.querySelectorAll('.bg-photo');
+  let current = 0;
+  setInterval(()=>{
+    photos[current].classList.remove('active');
+    current = (current + 1) % photos.length;
+    photos[current].classList.add('active');
+  }, 6000);
+})();
+
+
+/* MODALS */
+function show(id){
+  document.getElementById('md-'+id).classList.add('on');
+  if(id==='ct'){document.getElementById('ct-form').style.display='block';document.getElementById('ct-ok').style.display='none';}
+  if(id==='rfq'){document.getElementById('rfq-form').style.display='block';document.getElementById('rfq-ok').style.display='none';}
+}
+function hide(id){document.getElementById('md-'+id).classList.remove('on');}
+function showProduct(m){show(m);}
 document.querySelectorAll('.bd').forEach(b=>{
   b.addEventListener('click',e=>{if(e.target===b)b.classList.remove('on');});
 });
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')document.querySelectorAll('.bd.on').forEach(b=>b.classList.remove('on'));
 });
+
+/* FORMS */
+document.getElementById('ct-form').addEventListener('submit',async function(e){
+  e.preventDefault();const btn=this.querySelector('button');btn.textContent='Sending…';btn.disabled=true;
+  try{const res=await fetch('https://formspree.io/f/maqakpny',{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});
+    if(res.ok){this.style.display='none';document.getElementById('ct-ok').style.display='block';}
+    else{btn.textContent='Send Message';btn.disabled=false;}
+  }catch{btn.textContent='Send Message';btn.disabled=false;}
+});
+document.getElementById('rfq-form').addEventListener('submit',async function(e){
+  e.preventDefault();const btn=this.querySelector('button[type=submit]');btn.textContent='Submitting…';btn.disabled=true;
+  try{const res=await fetch('https://formspree.io/f/maqakpny',{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});
+    if(res.ok){this.style.display='none';document.getElementById('rfq-ok').style.display='block';}
+    else{btn.textContent='Submit Quotation Request';btn.disabled=false;}
+  }catch{btn.textContent='Submit Quotation Request';btn.disabled=false;}
+});
 </script>
+
 </body>
 </html>
