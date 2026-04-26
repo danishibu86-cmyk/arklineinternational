@@ -4,268 +4,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light only">
 <title>ARKLINE — International Metal Trading</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#0C0C0C;color:#fff;font-family:'Outfit',sans-serif;font-weight:300;cursor:none;}
 
-:root{
-–cu:   #C8893C;
-–cu2:  #E0A84E;
-–bg:   #141210;
-–ink:  #F5EFE6;
-–ink2: rgba(245,239,230,.68);
-–ink3: rgba(245,239,230,.35);
-–rule: rgba(200,137,60,.18);
-}
-
-html,body{
-width:100%;height:100%;
-overflow:hidden;
-background:var(–bg);
-color:var(–ink);
-font-family:‘Outfit’,sans-serif;
-font-weight:300;
-cursor:none;
-}
-
-/* CURSOR */
 #cur{position:fixed;inset:0;z-index:9999;pointer-events:none;}
-#cd{width:5px;height:5px;border-radius:50%;background:var(–cu);position:absolute;transform:translate(-50%,-50%);}
-#cr{width:26px;height:26px;border-radius:50%;border:1px solid rgba(200,137,60,.55);position:absolute;transform:translate(-50%,-50%);transition:all .22s ease;}
-.hov #cr{width:40px;height:40px;background:rgba(200,137,60,.07);}
+#cd{width:5px;height:5px;border-radius:50%;background:#B87333;position:absolute;transform:translate(-50%,-50%);}
+#cr{width:26px;height:26px;border-radius:50%;border:1px solid rgba(184,115,51,.5);position:absolute;transform:translate(-50%,-50%);transition:all .2s ease;}
+.hov #cr{width:40px;height:40px;background:rgba(184,115,51,.06);}
 
-/* PHOTO BACKGROUND */
-.bg-photos{position:fixed;inset:0;z-index:0;}
-.bg-photo{
-position:absolute;inset:0;
-background-size:cover;
-background-position:center;
-opacity:0;
-transition:opacity 2s ease-in-out;
-}
-.bg-photo.active{opacity:1;}
+/* Map SVG */
+#map-wrap{position:fixed;inset:0;z-index:0;}
+#map-wrap svg{width:100%;height:100%;}
+.land{fill:rgba(45,65,88,.35);stroke:rgba(255,255,255,.05);stroke-width:.4px;}
+.land-india{fill:rgba(184,115,51,.3);stroke:rgba(184,115,51,.4);stroke-width:1px;}
+.graticule{fill:none;stroke:rgba(255,255,255,.025);stroke-width:.5px;}
+.route{stroke:rgba(184,115,51,.15);stroke-width:.8px;fill:none;stroke-dasharray:5 10;}
 
-/* Heavy dark overlay so text reads perfectly */
-.overlay{
-position:fixed;inset:0;z-index:1;pointer-events:none;
-background:
-linear-gradient(
-to bottom,
-rgba(10,8,5,.72) 0%,
-rgba(10,8,5,.55) 30%,
-rgba(10,8,5,.60) 65%,
-rgba(10,8,5,.85) 100%
-);
+/* Vignette */
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+background:radial-gradient(ellipse at center, rgba(12,12,12,.5) 0%, rgba(12,12,12,.75) 55%, rgba(12,12,12,.96) 100%);}
+
+/* Strong text backdrop so ARKLINE lifts off map */
+.h-name{font-family:‘Cormorant Garamond’,serif;font-weight:600;font-size:clamp(5.5rem,15vw,13rem);line-height:.88;letter-spacing:.18em;color:#F5EFE6;
+text-shadow:
+0 0 120px rgba(0,0,0,1),
+0 0 60px rgba(0,0,0,1),
+0 0 30px rgba(0,0,0,.9),
+0 2px 4px rgba(0,0,0,1);
 }
 
-/* Grain */
-.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.025;
-background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 400 400’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=’.8’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘400’ height=‘400’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
-background-size:200px;}
+#shell{position:relative;z-index:2;width:100vw;height:100vh;display:flex;flex-direction:column;}
 
-/* SHELL */
-#shell{position:relative;z-index:3;width:100vw;height:100vh;display:flex;flex-direction:column;}
-
-/* HEADER */
-header{
-display:flex;align-items:center;justify-content:space-between;
-padding:0 52px;height:70px;
-border-bottom:1px solid rgba(200,137,60,.12);
-background:rgba(14,11,8,.6);
-backdrop-filter:blur(20px);
--webkit-backdrop-filter:blur(20px);
-}
-
-.logo{display:flex;flex-direction:column;gap:4px;}
-.logo-name{
-font-family:‘Cormorant Garamond’,serif;
-font-weight:600;font-size:1.45rem;
-letter-spacing:.32em;color:var(–ink);
-}
-.logo-sub{font-size:.5rem;letter-spacing:.34em;text-transform:uppercase;color:var(–ink3);}
-
+header{display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:70px;border-bottom:1px solid rgba(184,115,51,.12);background:rgba(12,12,12,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+.logo-name{font-family:‘Cormorant Garamond’,serif;font-weight:600;font-size:1.4rem;letter-spacing:.32em;color:#fff;}
+.logo-sub{font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:4px;}
 .hbtns{display:flex;gap:10px;}
-.btn{
-font-family:‘Outfit’,sans-serif;
-font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;
-font-weight:400;border:none;cursor:none;
-padding:10px 22px;transition:all .24s ease;
-}
-.btn-o{background:transparent;border:1px solid rgba(200,137,60,.3);color:var(–ink2);}
-.btn-o:hover{border-color:var(–cu);color:var(–cu);}
-.btn-s{background:var(–cu);color:#fff;box-shadow:0 0 30px rgba(200,137,60,.25);}
-.btn-s:hover{background:var(–cu2);box-shadow:0 0 50px rgba(200,137,60,.45);transform:translateY(-1px);}
+.btn{font-family:‘Outfit’,sans-serif;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;border:none;cursor:none;padding:10px 22px;transition:all .22s ease;}
+.btn-o{background:transparent;border:1px solid rgba(184,115,51,.3);color:rgba(255,255,255,.7);}
+.btn-o:hover{border-color:#B87333;color:#B87333;}
+.btn-s{background:#B87333;color:#fff;box-shadow:0 0 28px rgba(184,115,51,.28);}
+.btn-s:hover{background:#C8893C;box-shadow:0 0 48px rgba(184,115,51,.45);transform:translateY(-1px);}
 
-/* HERO — centered */
-.hero{
-flex:1;display:flex;flex-direction:column;
-align-items:center;justify-content:center;
-text-align:center;padding:0 32px;
-position:relative;
-}
-
-/* Subtle top/bottom rules */
-.hero::before,.hero::after{
-content:’’;position:absolute;left:10%;right:10%;height:1px;
-background:linear-gradient(90deg,transparent,rgba(200,137,60,.2),transparent);
-}
-.hero::before{top:16%;}
-.hero::after{bottom:16%;}
-
-.h-sup{
-font-size:.58rem;letter-spacing:.44em;text-transform:uppercase;
-color:var(–cu);font-weight:400;margin-bottom:16px;
-display:flex;align-items:center;gap:14px;
-}
-.h-sup::before,.h-sup::after{content:’’;width:32px;height:1px;background:var(–cu);opacity:.6;}
-
-.h-name{
-font-family:‘Cormorant Garamond’,serif;
-font-weight:600;
-font-size:clamp(5.5rem,15vw,13rem);
-line-height:.88;letter-spacing:.18em;
-/* Metallic shimmer */
-background:linear-gradient(120deg,
-#E8DDD0 0%,#D4A870 15%,#F5EFE6 30%,
-#C8893C 48%,#F5EFE6 63%,#B0C8D0 78%,#E8DDD0 100%
-);
-background-size:250% auto;
--webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-animation:metalShimmer 7s linear infinite;
-text-shadow:none;
-filter:drop-shadow(0 0 40px rgba(200,137,60,.35)) drop-shadow(0 2px 20px rgba(0,0,0,.8));
-}
-@keyframes metalShimmer{
-0%{background-position:200% center;}
-100%{background-position:-200% center;}
-}
-
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px;}
+.h-sup{font-size:.58rem;letter-spacing:.44em;text-transform:uppercase;color:#B87333;font-weight:400;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
+.h-sup::before,.h-sup::after{content:’’;width:30px;height:1px;background:#B87333;opacity:.6;}
+.h-name{font-family:‘Cormorant Garamond’,serif;font-weight:600;font-size:clamp(5.5rem,15vw,13rem);line-height:.88;letter-spacing:.18em;color:#F5EFE6;text-shadow:0 0 80px rgba(184,115,51,.4),0 4px 40px rgba(0,0,0,.95);}
 .h-div{display:flex;align-items:center;gap:14px;margin:18px 0 20px;}
-.h-line{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(–cu));}
+.h-line{width:52px;height:1px;background:linear-gradient(90deg,transparent,#B87333);}
 .h-line.r{transform:rotate(180deg);}
-.h-dot{width:4px;height:4px;background:var(–cu);transform:rotate(45deg);}
+.h-dot{width:4px;height:4px;background:#B87333;transform:rotate(45deg);}
+.h-desc{font-family:‘Cormorant Garamond’,serif;font-style:italic;font-weight:300;font-size:clamp(.95rem,1.6vw,1.18rem);color:rgba(255,255,255,.58);line-height:1.8;max-width:480px;}
+.h-tags{display:flex;gap:8px;margin-top:26px;justify-content:center;}
+.tag{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:300;padding:7px 16px;border:1px solid rgba(184,115,51,.18);background:rgba(184,115,51,.04);backdrop-filter:blur(8px);cursor:none;transition:all .24s ease;}
+.tag:hover{border-color:#B87333;color:#B87333;background:rgba(184,115,51,.1);}
 
-.h-desc{
-font-family:‘Cormorant Garamond’,serif;
-font-style:italic;font-weight:300;
-font-size:clamp(.95rem,1.6vw,1.18rem);
-color:var(–ink2);line-height:1.8;
-max-width:480px;
-}
-
-/* Metal tags */
-.h-tags{display:flex;gap:8px;margin-top:26px;justify-content:center;flex-wrap:nowrap;}
-.tag{
-font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
-color:var(–ink3);font-weight:300;
-padding:7px 16px;
-border:1px solid rgba(200,137,60,.18);
-background:rgba(200,137,60,.04);
-backdrop-filter:blur(8px);
-cursor:none;transition:all .24s ease;
-}
-.tag:hover{border-color:var(–cu);color:var(–cu);background:rgba(200,137,60,.09);}
-
-/* FOOTER */
-footer{
-display:flex;flex-direction:column;align-items:center;
-justify-content:center;gap:7px;
-height:54px;
-border-top:1px solid rgba(200,137,60,.1);
-background:rgba(10,8,5,.65);
-backdrop-filter:blur(20px);
--webkit-backdrop-filter:blur(20px);
-}
+footer{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;height:54px;border-top:1px solid rgba(184,115,51,.1);background:rgba(8,8,8,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
 .ft-certs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center;}
-.ft-certs span{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:var(–ink3);}
-.ft-dot{width:2px;height:2px;border-radius:50%;background:rgba(200,137,60,.35);}
-.ft-copy{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(245,239,230,.15);}
+.ft-certs span{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.28);}
+.ft-dot{width:2px;height:2px;border-radius:50%;background:rgba(184,115,51,.4);}
+.ft-copy{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.14);}
 
-/* MODAL */
-.bd{
-position:fixed;inset:0;z-index:500;
-background:rgba(8,6,3,.8);
-backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-display:flex;align-items:center;justify-content:center;
-opacity:0;pointer-events:none;transition:opacity .28s;
-}
+.bd{position:fixed;inset:0;z-index:500;background:rgba(6,6,6,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s;}
 .bd.on{opacity:1;pointer-events:all;}
-.modal{
-background:#1C1610;
-border:1px solid rgba(200,137,60,.18);
-width:min(600px,94vw);max-height:88vh;overflow-y:auto;
-position:relative;transform:translateY(10px);transition:transform .3s ease;
-box-shadow:0 40px 120px rgba(0,0,0,.85),0 0 60px rgba(200,137,60,.05);
-}
+.modal{background:#141414;border:1px solid rgba(184,115,51,.18);width:min(600px,94vw);max-height:88vh;overflow-y:auto;position:relative;transform:translateY(10px);transition:transform .3s ease;box-shadow:0 40px 120px rgba(0,0,0,.9);}
 .bd.on .modal{transform:translateY(0);}
-.modal::-webkit-scrollbar{width:2px;}
-.modal::-webkit-scrollbar-thumb{background:rgba(200,137,60,.28);}
-
-.m-band{padding:26px 38px 22px;border-bottom:1px solid rgba(200,137,60,.1);background:rgba(200,137,60,.04);position:relative;}
-.m-eye{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:var(–cu);font-weight:400;margin-bottom:5px;}
-.m-title{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:600;color:var(–ink);letter-spacing:.04em;}
-.m-x{position:absolute;top:18px;right:22px;background:none;border:none;cursor:none;color:var(–ink3);font-size:1.3rem;line-height:1;transition:color .15s,transform .2s;}
-.m-x:hover{color:var(–cu);transform:rotate(90deg);}
-
+.modal::-webkit-scrollbar{width:2px;}.modal::-webkit-scrollbar-thumb{background:rgba(184,115,51,.3);}
+.m-band{padding:26px 38px 22px;border-bottom:1px solid rgba(184,115,51,.1);background:rgba(184,115,51,.04);position:relative;}
+.m-eye{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:#B87333;font-weight:400;margin-bottom:5px;}
+.m-title{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:600;color:#fff;letter-spacing:.04em;}
+.m-x{position:absolute;top:18px;right:22px;background:none;border:none;cursor:none;color:rgba(255,255,255,.3);font-size:1.3rem;line-height:1;transition:color .15s,transform .2s;}
+.m-x:hover{color:#B87333;transform:rotate(90deg);}
 .m-body{padding:26px 38px 34px;}
 .ci{display:grid;gap:13px;margin-bottom:20px;}
 .ci-r{display:flex;gap:13px;align-items:center;}
-.ci-ic{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(200,137,60,.14);display:flex;align-items:center;justify-content:center;background:rgba(200,137,60,.05);}
-.ci-ic svg{width:15px;height:15px;stroke:var(–cu);fill:none;stroke-width:1.5;}
-.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(–ink3);margin-bottom:2px;}
-.ci-v{font-size:.88rem;color:var(–ink);font-weight:300;}
-
+.ci-ic{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(184,115,51,.14);display:flex;align-items:center;justify-content:center;background:rgba(184,115,51,.06);}
+.ci-ic svg{width:15px;height:15px;stroke:#B87333;fill:none;stroke-width:1.5;}
+.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2px;}
+.ci-v{font-size:.88rem;color:#fff;font-weight:300;}
 .fr{margin-bottom:12px;}
-.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(–ink3);font-weight:300;margin-bottom:5px;}
-.fi,.fta,.fsel{
-width:100%;background:rgba(255,255,255,.04);
-border:1px solid rgba(200,137,60,.14);padding:10px 13px;
-font-family:‘Outfit’,sans-serif;font-size:.86rem;font-weight:300;
-color:var(–ink);outline:none;transition:border-color .18s;cursor:none;
-}
-.fi::placeholder,.fta::placeholder{color:rgba(245,239,230,.2);}
-.fi:focus,.fta:focus,.fsel:focus{border-color:var(–cu);}
-.fta{resize:vertical;min-height:80px;}
-.fsel{color:var(–ink);cursor:none;}
-.fsel option{background:#1C1610;}
+.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:300;margin-bottom:5px;}
+.fi,.fta,.fsel{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(184,115,51,.14);padding:10px 13px;font-family:‘Outfit’,sans-serif;font-size:.86rem;font-weight:300;color:#fff;outline:none;transition:border-color .18s;cursor:none;}
+.fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.18);}
+.fi:focus,.fta:focus,.fsel:focus{border-color:#B87333;}
+.fta{resize:vertical;min-height:80px;}.fsel{color:#fff;cursor:none;}.fsel option{background:#141414;}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.m-hr{height:1px;background:rgba(200,137,60,.1);margin:18px 0;}
-
-.sec{font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:var(–cu);font-weight:400;display:flex;align-items:center;gap:10px;margin:20px 0 12px;}
-.sec::after{content:’’;flex:1;height:1px;background:rgba(200,137,60,.1);}
+.m-hr{height:1px;background:rgba(184,115,51,.1);margin:18px 0;}
+.sec{font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:#B87333;font-weight:400;display:flex;align-items:center;gap:10px;margin:20px 0 12px;}
+.sec::after{content:’’;flex:1;height:1px;background:rgba(184,115,51,.12);}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;}
-.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(–ink2);font-weight:300;cursor:none;}
-.ci2 input{accent-color:var(–cu);cursor:none;width:12px;height:12px;}
-
+.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.6);font-weight:300;cursor:none;}
+.ci2 input{accent-color:#B87333;cursor:none;width:12px;height:12px;}
 .btn-w{width:100%;padding:13px;font-size:.68rem;letter-spacing:.18em;margin-top:10px;}
-.m-note{font-size:.58rem;color:var(–ink3);text-align:center;margin-top:10px;letter-spacing:.08em;}
-
+.m-note{font-size:.58rem;color:rgba(255,255,255,.25);text-align:center;margin-top:10px;letter-spacing:.08em;}
 .success{display:none;text-align:center;padding:40px 20px;}
-.success-check{width:54px;height:54px;border-radius:50%;border:1.5px solid var(–cu);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(–cu);font-size:1.4rem;}
-.success-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:600;color:var(–ink);margin-bottom:8px;}
-.success-sub{font-size:.85rem;color:var(–ink3);font-weight:300;line-height:1.7;}
-
+.success-check{width:54px;height:54px;border-radius:50%;border:1.5px solid #B87333;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#B87333;font-size:1.4rem;}
+.success-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:600;color:#fff;margin-bottom:8px;}
+.success-sub{font-size:.85rem;color:rgba(255,255,255,.35);font-weight:300;line-height:1.7;}
 .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
-.prod-card{padding:14px 16px;border:1px solid rgba(200,137,60,.12);border-left:2px solid var(–cu);background:rgba(200,137,60,.04);}
-.prod-name{font-size:.78rem;font-weight:500;color:var(–ink);letter-spacing:.04em;margin-bottom:5px;}
-.prod-spec{font-size:.7rem;color:var(–ink3);font-weight:300;line-height:1.6;}
-.prod-note{font-size:.62rem;color:var(–ink3);border:1px solid rgba(200,137,60,.1);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
+.prod-card{padding:14px 16px;border:1px solid rgba(184,115,51,.12);border-left:2px solid #B87333;background:rgba(184,115,51,.04);}
+.prod-name{font-size:.78rem;font-weight:500;color:#fff;letter-spacing:.04em;margin-bottom:5px;}
+.prod-spec{font-size:.7rem;color:rgba(255,255,255,.3);font-weight:300;line-height:1.6;}
+.prod-note{font-size:.62rem;color:rgba(255,255,255,.25);border:1px solid rgba(184,115,51,.1);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
 
 @media(max-width:768px){
-header{padding:0 20px;height:62px;}
-.logo-name{font-size:1.15rem;letter-spacing:.22em;}
-.btn{padding:8px 13px;font-size:.6rem;}
-.hero{padding:0 20px;}
-.h-tags{gap:5px;}
-.tag{padding:6px 10px;font-size:.5rem;}
+header{padding:0 20px;height:62px;}.logo-name{font-size:1.1rem;}
+.btn{padding:8px 13px;font-size:.6rem;}.hero{padding:0 20px;}
+.h-tags{gap:5px;}.tag{padding:6px 10px;font-size:.5rem;}
 footer{height:auto;padding:10px 20px;}
-.m-band{padding:18px 20px 14px;}
-.m-body{padding:18px 20px 26px;}
-.fg2{grid-template-columns:1fr;}
-.cg{grid-template-columns:1fr;}
-.prod-grid{grid-template-columns:1fr;}
+.m-band{padding:18px 20px 14px;}.m-body{padding:18px 20px 26px;}
+.fg2{grid-template-columns:1fr;}.cg{grid-template-columns:1fr;}.prod-grid{grid-template-columns:1fr;}
 }
 </style>
 
@@ -273,38 +124,22 @@ footer{height:auto;padding:10px 20px;}
 <body>
 
 <div id="cur"><div id="cd"></div><div id="cr"></div></div>
-<div class="bg-photos">
-  <!-- Real photos: copper coils, cargo ship, aluminium ingots, globe/world map -->
-  <div class="bg-photo active" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=90');"></div>
-  <div class="bg-photo" style="background-image:url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=90');"></div>
-  <div class="bg-photo" style="background-image:url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=90');"></div>
-  <div class="bg-photo" style="background-image:url('https://images.unsplash.com/photo-1494961104209-3c223057bd26?w=1600&q=90');"></div>
-</div>
-<div class="overlay"></div>
-<div class="grain"></div>
+<div id="map-wrap"></div>
+<div class="vignette"></div>
 
 <div id="shell">
   <header>
-    <div class="logo">
-      <div class="logo-name">ARKLINE</div>
-      <div class="logo-sub">Mumbai, India</div>
-    </div>
+    <div><div class="logo-name">ARKLINE</div><div class="logo-sub">Mumbai, India</div></div>
     <div class="hbtns">
       <button class="btn btn-o" onclick="show('ct')">Contact Us</button>
       <button class="btn btn-s" onclick="show('rfq')">Request Quotation</button>
     </div>
   </header>
-
   <main class="hero">
     <div class="h-sup">International Metal Trading</div>
     <h1 class="h-name">ARKLINE</h1>
-    <div class="h-div">
-      <div class="h-line"></div><div class="h-dot"></div><div class="h-line r"></div>
-    </div>
-    <p class="h-desc">
-      Sourcing copper and aluminium from the world's finest producers,<br>
-      trusted by manufacturers across India.
-    </p>
+    <div class="h-div"><div class="h-line"></div><div class="h-dot"></div><div class="h-line r"></div></div>
+    <p class="h-desc">Sourcing copper and aluminium from the world's finest producers,<br>trusted by manufacturers across India.</p>
     <div class="h-tags">
       <div class="tag" onclick="showProduct('copper')">Copper</div>
       <div class="tag" onclick="showProduct('aluminium')">Aluminium</div>
@@ -312,7 +147,6 @@ footer{height:auto;padding:10px 20px;}
       <div class="tag" onclick="showProduct('nickel')">Nickel</div>
     </div>
   </main>
-
   <footer>
     <div class="ft-certs">
       <span>Certificate of Origin</span><div class="ft-dot"></div>
@@ -327,10 +161,7 @@ footer{height:auto;padding:10px 20px;}
 <!-- CONTACT -->
 
 <div class="bd" id="md-ct"><div class="modal">
-  <div class="m-band">
-    <button class="m-x" onclick="hide('ct')">×</button>
-    <div class="m-eye">Get In Touch</div><div class="m-title">Contact Us</div>
-  </div>
+  <div class="m-band"><button class="m-x" onclick="hide('ct')">×</button><div class="m-eye">Get In Touch</div><div class="m-title">Contact Us</div></div>
   <div class="m-body">
     <div class="ci">
       <div class="ci-r"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div><div><div class="ci-l">Phone &amp; WhatsApp</div><div class="ci-v">+91 88989 81378</div></div></div>
@@ -340,10 +171,7 @@ footer{height:auto;padding:10px 20px;}
     <div class="m-hr"></div>
     <div class="success" id="ct-ok"><div class="success-check">✓</div><div class="success-title">Message Sent</div><div class="success-sub">We'll respond within 24 hours.</div></div>
     <form id="ct-form">
-      <div class="fg2">
-        <div class="fr"><label class="fl">Name</label><input class="fi" type="text" name="name" placeholder="Your name" required></div>
-        <div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="your@email.com" required></div>
-      </div>
+      <div class="fg2"><div class="fr"><label class="fl">Name</label><input class="fi" type="text" name="name" placeholder="Your name" required></div><div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="your@email.com" required></div></div>
       <div class="fr"><label class="fl">Message</label><textarea class="fta" name="message" placeholder="How can we help?"></textarea></div>
       <button type="submit" class="btn btn-s btn-w">Send Message</button>
     </form>
@@ -353,21 +181,12 @@ footer{height:auto;padding:10px 20px;}
 <!-- RFQ -->
 
 <div class="bd" id="md-rfq"><div class="modal">
-  <div class="m-band">
-    <button class="m-x" onclick="hide('rfq')">×</button>
-    <div class="m-eye">Trade Inquiry</div><div class="m-title">Request a Quotation</div>
-  </div>
+  <div class="m-band"><button class="m-x" onclick="hide('rfq')">×</button><div class="m-eye">Trade Inquiry</div><div class="m-title">Request a Quotation</div></div>
   <div class="m-body">
     <div class="success" id="rfq-ok"><div class="success-check">✓</div><div class="success-title">Request Received</div><div class="success-sub">Our team responds within 24 hours.</div></div>
     <form id="rfq-form">
-      <div class="fg2">
-        <div class="fr"><label class="fl">Company</label><input class="fi" type="text" name="company" placeholder="Company name" required></div>
-        <div class="fr"><label class="fl">Contact Person</label><input class="fi" type="text" name="name" placeholder="Full name" required></div>
-      </div>
-      <div class="fg2">
-        <div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="Email" required></div>
-        <div class="fr"><label class="fl">WhatsApp / Phone</label><input class="fi" type="tel" name="phone" placeholder="+91 …"></div>
-      </div>
+      <div class="fg2"><div class="fr"><label class="fl">Company</label><input class="fi" type="text" name="company" placeholder="Company name" required></div><div class="fr"><label class="fl">Contact Person</label><input class="fi" type="text" name="name" placeholder="Full name" required></div></div>
+      <div class="fg2"><div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="Email" required></div><div class="fr"><label class="fl">WhatsApp / Phone</label><input class="fi" type="tel" name="phone" placeholder="+91 …"></div></div>
       <div class="sec">Copper</div>
       <div class="cg">
         <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes Grade A"> Cathodes — Grade A (99.99%)</label>
@@ -400,114 +219,157 @@ footer{height:auto;padding:10px 20px;}
       </div>
       <div class="sec">Shipment</div>
       <div class="fg2">
-        <div class="fr"><label class="fl">Quantity (MT/Month)</label>
-          <select class="fsel" name="quantity"><option value="">Select…</option><option>2–5 MT</option><option>5–10 MT</option><option>10–25 MT</option><option>25–50 MT</option><option>50–100 MT</option><option>100+ MT</option></select>
-        </div>
-        <div class="fr"><label class="fl">Frequency</label>
-          <select class="fsel" name="frequency"><option value="">Select…</option><option>One-time</option><option>Monthly</option><option>Quarterly</option><option>Annual Contract</option></select>
-        </div>
+        <div class="fr"><label class="fl">Quantity (MT/Month)</label><select class="fsel" name="quantity"><option value="">Select…</option><option>2–5 MT</option><option>5–10 MT</option><option>10–25 MT</option><option>25–50 MT</option><option>50–100 MT</option><option>100+ MT</option></select></div>
+        <div class="fr"><label class="fl">Frequency</label><select class="fsel" name="frequency"><option value="">Select…</option><option>One-time</option><option>Monthly</option><option>Quarterly</option><option>Annual Contract</option></select></div>
       </div>
       <div class="fg2">
         <div class="fr"><label class="fl">Expected Price (USD/MT)</label><input class="fi" type="text" name="price" placeholder="Target price"></div>
         <div class="fr"><label class="fl">Delivery Destination</label><input class="fi" type="text" name="delivery" placeholder="City or port, India"></div>
       </div>
-      <div class="fr"><label class="fl">Specifications</label><textarea class="fta" name="specs" style="min-height:58px" placeholder="Purity, certifications, Incoterms…"></textarea></div>
+      <div class="fr"><label class="fl">Specifications</label><textarea class="fta" name="specs" style="min-height:56px" placeholder="Purity, certifications, Incoterms…"></textarea></div>
       <button type="submit" class="btn btn-s btn-w">Submit Quotation Request</button>
       <p class="m-note">Response within 24 hours · Mumbai, India</p>
     </form>
   </div>
 </div></div>
 
-<!-- PRODUCT SHEETS -->
+<!-- COPPER -->
 
-<div class="bd" id="md-copper"><div class="modal">
-  <div class="m-band"><button class="m-x" onclick="hide('copper')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Copper</div></div>
-  <div class="m-body">
-    <p style="font-size:.86rem;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:20px;">LME-registered, SGS-verified copper from certified global producers, delivered across India.</p>
-    <div class="prod-grid">
-      <div class="prod-card"><div class="prod-name">Cathodes</div><div class="prod-spec">Grade A — 99.99%<br>EQ Grade — 99.97%</div></div>
-      <div class="prod-card"><div class="prod-name">Sheets &amp; Plates</div><div class="prod-spec">99.9% pure, non-scrap<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Wire Rods</div><div class="prod-spec">CCR / ETP cast<br>OFHC Oxygen-Free</div></div>
-      <div class="prod-card"><div class="prod-name">Copper Scrap</div><div class="prod-spec">ISRI Berry — 99% Cu<br>Millberry — bare bright</div></div>
-    </div>
-    <div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div>
-    <button class="btn btn-s btn-w" onclick="hide('copper');show('rfq')">Request Quotation</button>
-  </div>
-</div></div>
-
-<div class="bd" id="md-aluminium"><div class="modal">
-  <div class="m-band"><button class="m-x" onclick="hide('aluminium')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Aluminium</div></div>
-  <div class="m-body">
-    <p style="font-size:.86rem;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:20px;">Primary aluminium from global smelters — serving manufacturers and foundries pan-India.</p>
-    <div class="prod-grid">
-      <div class="prod-card"><div class="prod-name">Primary Ingots</div><div class="prod-spec">P1020 — LME Grade<br>A7 — 99.7%</div></div>
-      <div class="prod-card"><div class="prod-name">Billets &amp; Slabs</div><div class="prod-spec">Wire rods, extrusions<br>Non-scrap, primary</div></div>
-      <div class="prod-card"><div class="prod-name">Sheets &amp; Coils</div><div class="prod-spec">Foils also available<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Al Scrap</div><div class="prod-spec">ISRI Tense — 90–95%<br>Mixed aluminium</div></div>
-    </div>
-    <div class="prod-note">2–100 MT/month · MTR · SGS / BV inspection available</div>
-    <button class="btn btn-s btn-w" onclick="hide('aluminium');show('rfq')">Request Quotation</button>
-  </div>
-</div></div>
-
-<div class="bd" id="md-brass"><div class="modal">
-  <div class="m-band"><button class="m-x" onclick="hide('brass')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Brass</div></div>
-  <div class="m-body">
-    <div class="prod-grid">
-      <div class="prod-card"><div class="prod-name">Brass Scrap</div><div class="prod-spec">ISRI Honey — Cu-Zn<br>As per grade</div></div>
-      <div class="prod-card"><div class="prod-name">Brass Rods</div><div class="prod-spec">Free-cutting grades<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Brass Wires</div><div class="prod-spec">Various gauges<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Brass Strips</div><div class="prod-spec">Various widths<br>As per specification</div></div>
-    </div>
-    <div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div>
-    <button class="btn btn-s btn-w" onclick="hide('brass');show('rfq')">Request Quotation</button>
-  </div>
-</div></div>
-
-<div class="bd" id="md-nickel"><div class="modal">
-  <div class="m-band"><button class="m-x" onclick="hide('nickel')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Nickel</div></div>
-  <div class="m-body">
-    <div class="prod-grid">
-      <div class="prod-card"><div class="prod-name">Refined Nickel</div><div class="prod-spec">LME — 99.8% Ni min<br>Plates, cathodes</div></div>
-      <div class="prod-card"><div class="prod-name">Ferronickel</div><div class="prod-spec">Ni 15–40%<br>Stainless production</div></div>
-      <div class="prod-card"><div class="prod-name">Nickel Pig Iron</div><div class="prod-spec">Low/High grade<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Nickel Alloys</div><div class="prod-spec">Inconel, Monel, Hastelloy<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Nickel Matte</div><div class="prod-spec">Smelter intermediate<br>As per specification</div></div>
-      <div class="prod-card"><div class="prod-name">Ni Scrap</div><div class="prod-spec">SS scrap with Ni<br>As per composition</div></div>
-    </div>
-    <div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div>
-    <button class="btn btn-s btn-w" onclick="hide('nickel');show('rfq')">Request Quotation</button>
-  </div>
-</div></div>
+<div class="bd" id="md-copper"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('copper')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Copper</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Cathodes</div><div class="prod-spec">Grade A — 99.99%<br>EQ Grade — 99.97%</div></div><div class="prod-card"><div class="prod-name">Sheets &amp; Plates</div><div class="prod-spec">99.9% pure, non-scrap<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Wire Rods</div><div class="prod-spec">CCR / ETP cast<br>OFHC Oxygen-Free</div></div><div class="prod-card"><div class="prod-name">Copper Scrap</div><div class="prod-spec">ISRI Berry — 99% Cu<br>Millberry — bare bright</div></div></div><div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div><button class="btn btn-s btn-w" onclick="hide('copper');show('rfq')">Request Quotation</button></div></div></div>
+<div class="bd" id="md-aluminium"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('aluminium')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Aluminium</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Primary Ingots</div><div class="prod-spec">P1020 — LME Grade<br>A7 — 99.7%</div></div><div class="prod-card"><div class="prod-name">Billets &amp; Slabs</div><div class="prod-spec">Wire rods, extrusions<br>Non-scrap, primary</div></div><div class="prod-card"><div class="prod-name">Sheets &amp; Coils</div><div class="prod-spec">Foils also available<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Al Scrap</div><div class="prod-spec">ISRI Tense — 90–95%<br>Mixed aluminium</div></div></div><div class="prod-note">2–100 MT/month · MTR · SGS / BV inspection available</div><button class="btn btn-s btn-w" onclick="hide('aluminium');show('rfq')">Request Quotation</button></div></div></div>
+<div class="bd" id="md-brass"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('brass')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Brass</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Brass Scrap</div><div class="prod-spec">ISRI Honey — Cu-Zn<br>As per grade</div></div><div class="prod-card"><div class="prod-name">Brass Rods</div><div class="prod-spec">Free-cutting grades<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Brass Wires</div><div class="prod-spec">Various gauges<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Brass Strips</div><div class="prod-spec">Various widths<br>As per specification</div></div></div><div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div><button class="btn btn-s btn-w" onclick="hide('brass');show('rfq')">Request Quotation</button></div></div></div>
+<div class="bd" id="md-nickel"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('nickel')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Nickel</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Refined Nickel</div><div class="prod-spec">LME — 99.8% Ni min<br>Plates, cathodes</div></div><div class="prod-card"><div class="prod-name">Ferronickel</div><div class="prod-spec">Ni 15–40%<br>Stainless production</div></div><div class="prod-card"><div class="prod-name">Nickel Pig Iron</div><div class="prod-spec">Low/High grade<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Nickel Alloys</div><div class="prod-spec">Inconel, Monel, Hastelloy<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Nickel Matte</div><div class="prod-spec">Smelter intermediate<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Ni Scrap</div><div class="prod-spec">SS scrap with Ni<br>As per composition</div></div></div><div class="prod-note">2–100 MT/month · COA · SGS / BV inspection available</div><button class="btn btn-s btn-w" onclick="hide('nickel');show('rfq')">Request Quotation</button></div></div></div>
 
 <script>
 /* CURSOR */
 const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-document.querySelectorAll('button,a,input,select,textarea,label,.tag').forEach(el=>{
+document.querySelectorAll('button,input,select,textarea,label,.tag').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
 });
-(function loop(){
-  cd.style.left=mx+'px';cd.style.top=my+'px';
-  rx+=(mx-rx)*.13;ry+=(my-ry)*.13;
-  cr.style.left=rx+'px';cr.style.top=ry+'px';
-  requestAnimationFrame(loop);
-})();
+(function loop(){cd.style.left=mx+'px';cd.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
 
-
-/* PHOTO CROSSFADE */
+/* D3 WORLD MAP */
 (function(){
-  const photos = document.querySelectorAll('.bg-photo');
-  let current = 0;
-  setInterval(()=>{
-    photos[current].classList.remove('active');
-    current = (current + 1) % photos.length;
-    photos[current].classList.add('active');
-  }, 6000);
-})();
+  const W = window.innerWidth, H = window.innerHeight;
+  const svg = d3.select('#map-wrap').append('svg')
+    .attr('width', W).attr('height', H);
 
+  // Natural Earth projection — this is what real maps look like
+  const projection = d3.geoNaturalEarth1()
+    .scale(W / 5.8)
+    .translate([W / 2, H / 2]);
+
+  const path = d3.geoPath().projection(projection);
+
+  // Graticule grid
+  const graticule = d3.geoGraticule().step([30, 30]);
+  svg.append('path').datum(graticule()).attr('class','graticule').attr('d', path);
+
+  // Source cities [lng, lat]
+  const sources = [
+    [-0.1,   51.5],  // London
+    [4.5,    51.9],  // Rotterdam
+    [55.3,   25.2],  // Dubai
+    [103.8,  1.3 ],  // Singapore
+    [139.6,  35.6],  // Tokyo
+    [151.2, -33.9],  // Sydney
+    [-70.6, -33.4],  // Santiago
+    [-74.0,  40.7],  // New York
+    [121.5,  31.2],  // Shanghai
+    [88.2,   69.3],  // Norilsk
+    [114.2,  22.3],  // Hong Kong
+    [37.6,   55.7],  // Moscow
+    [116.4,  39.9],  // Beijing
+    [113.3,  23.1],  // Guangzhou
+    [126.6,  45.7],  // Harbin (copper mining region)
+  ];
+  const indiaCoord = [72.8, 19.0];
+  const indiaXY = projection(indiaCoord);
+
+  // Fetch real world map data from CDN
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
+    const countries = topojson.feature(world, world.objects.countries);
+
+    // Draw all countries
+    svg.selectAll('.land')
+      .data(countries.features)
+      .enter().append('path')
+      .attr('class', d => {
+        // India is country id 356
+        return d.id === 356 ? 'land land-india' : 'land';
+      })
+      .attr('d', path);
+
+    // Draw routes
+    sources.forEach(src => {
+      const srcXY = projection(src);
+      svg.append('line')
+        .attr('class','route')
+        .attr('x1', srcXY[0]).attr('y1', srcXY[1])
+        .attr('x2', indiaXY[0]).attr('y2', indiaXY[1]);
+    });
+
+    // Draw source dots
+    sources.forEach(src => {
+      const xy = projection(src);
+      svg.append('circle')
+        .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 3)
+        .attr('fill','rgba(160,200,255,.7)').attr('stroke','rgba(200,230,255,.4)').attr('stroke-width',1);
+    });
+
+    // India pulsing dot — animated via CSS
+    svg.append('circle').attr('class','india-ring')
+      .attr('cx', indiaXY[0]).attr('cy', indiaXY[1]).attr('r', 12)
+      .attr('fill','none').attr('stroke','rgba(184,115,51,.4)').attr('stroke-width',1.5);
+    svg.append('circle')
+      .attr('cx', indiaXY[0]).attr('cy', indiaXY[1]).attr('r', 6)
+      .attr('fill','#B87333');
+    svg.append('circle')
+      .attr('cx', indiaXY[0]).attr('cy', indiaXY[1]).attr('r', 3)
+      .attr('fill','#FFD080');
+
+    // Animate particles along routes
+    function animateParticle(src, delay){
+      const srcXY = projection(src);
+      const dot = svg.append('circle').attr('r', 3).attr('fill','rgba(255,190,100,.9)').attr('opacity',0);
+      function run(){
+        dot.attr('cx', srcXY[0]).attr('cy', srcXY[1]).attr('opacity',0);
+        dot.transition().delay(delay)
+          .duration(4000).ease(d3.easeLinear)
+          .attrTween('cx', () => d3.interpolateNumber(srcXY[0], indiaXY[0]))
+          .attrTween('cy', () => d3.interpolateNumber(srcXY[1], indiaXY[1]))
+          .attrTween('opacity', () => t => Math.sin(t * Math.PI))
+          .on('end', run);
+      }
+      run();
+    }
+
+    sources.forEach((src, i) => {
+      animateParticle(src, i * 400);
+      animateParticle(src, i * 400 + 2200);
+    });
+
+    // Pulse India ring
+    function pulseRing(){
+      svg.select('.india-ring')
+        .attr('r',8).attr('opacity',.7)
+        .transition().duration(2000).ease(d3.easeCubicOut)
+        .attr('r',22).attr('opacity',0)
+        .on('end', pulseRing);
+    }
+    pulseRing();
+
+  }).catch(() => {
+    // Fallback if CDN fails — show message
+    svg.append('text').attr('x',W/2).attr('y',H/2)
+      .attr('text-anchor','middle').attr('fill','rgba(255,255,255,.2)')
+      .attr('font-family','Outfit').attr('font-size','14px')
+      .text('Map loads when online');
+  });
+})();
 
 /* MODALS */
 function show(id){
@@ -517,12 +379,8 @@ function show(id){
 }
 function hide(id){document.getElementById('md-'+id).classList.remove('on');}
 function showProduct(m){show(m);}
-document.querySelectorAll('.bd').forEach(b=>{
-  b.addEventListener('click',e=>{if(e.target===b)b.classList.remove('on');});
-});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')document.querySelectorAll('.bd.on').forEach(b=>b.classList.remove('on'));
-});
+document.querySelectorAll('.bd').forEach(b=>{b.addEventListener('click',e=>{if(e.target===b)b.classList.remove('on');});});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.bd.on').forEach(b=>b.classList.remove('on'));});
 
 /* FORMS */
 document.getElementById('ct-form').addEventListener('submit',async function(e){
@@ -540,6 +398,8 @@ document.getElementById('rfq-form').addEventListener('submit',async function(e){
   }catch{btn.textContent='Submit Quotation Request';btn.disabled=false;}
 });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 
 </body>
 </html>
