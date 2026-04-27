@@ -117,7 +117,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 5
 .h-dot{width:4px;height:4px;background:#B87333;transform:rotate(45deg);}
 .h-desc{font-family:‘Cormorant Garamond’,serif;font-style:italic;font-weight:300;font-size:clamp(.95rem,1.6vw,1.18rem);color:rgba(255,255,255,.58);line-height:1.8;max-width:480px;}
 .h-tags{display:flex;gap:8px;margin-top:26px;justify-content:center;}
-.tag{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:300;padding:7px 16px;border:1px solid rgba(184,115,51,.18);background:rgba(184,115,51,.04);backdrop-filter:blur(8px);cursor:none;transition:all .24s ease;}
+.tag{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4);font-weight:300;padding:7px 16px;border:1px solid rgba(184,115,51,.18);background:rgba(184,115,51,.04);backdrop-filter:blur(8px);cursor:none;transition:all .24s ease;}
 .tag:hover{border-color:#B87333;color:#B87333;background:rgba(184,115,51,.1);}
 
 footer{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;height:54px;border-top:1px solid rgba(184,115,51,.1);background:rgba(16,14,12,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
@@ -126,47 +126,47 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 .ft-dot{width:2px;height:2px;border-radius:50%;background:rgba(184,115,51,.4);}
 .ft-copy{font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.14);}
 
-.bd{position:fixed;inset:0;z-index:500;background:rgba(6,6,6,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s;}
+.bd{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s;}
 .bd.on{opacity:1;pointer-events:all;}
-.modal{background:#141414;border:1px solid rgba(184,115,51,.18);width:min(600px,94vw);max-height:88vh;overflow-y:auto;position:relative;transform:translateY(10px);transition:transform .3s ease;box-shadow:0 40px 120px rgba(0,0,0,.9);}
+.modal{background:#FAFAF8;border:1px solid rgba(184,115,51,.15);width:min(600px,94vw);max-height:88vh;overflow-y:auto;position:relative;transform:translateY(10px);transition:transform .3s ease;box-shadow:0 20px 80px rgba(0,0,0,.25);}
 .bd.on .modal{transform:translateY(0);}
 .modal::-webkit-scrollbar{width:2px;}.modal::-webkit-scrollbar-thumb{background:rgba(184,115,51,.3);}
-.m-band{padding:26px 38px 22px;border-bottom:1px solid rgba(184,115,51,.1);background:rgba(184,115,51,.04);position:relative;}
+.m-band{padding:26px 38px 22px;border-bottom:1px solid rgba(184,115,51,.1);background:rgba(184,115,51,.06);position:relative;}
 .m-eye{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:#B87333;font-weight:400;margin-bottom:5px;}
-.m-title{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:600;color:#fff;letter-spacing:.04em;}
-.m-x{position:absolute;top:18px;right:22px;background:none;border:none;cursor:none;color:rgba(255,255,255,.3);font-size:1.3rem;line-height:1;transition:color .15s,transform .2s;}
+.m-title{font-family:‘Cormorant Garamond’,serif;font-size:1.8rem;font-weight:600;color:#1A1410;letter-spacing:.04em;}
+.m-x{position:absolute;top:18px;right:22px;background:none;border:none;cursor:none;color:rgba(0,0,0,.3);font-size:1.3rem;line-height:1;transition:color .15s,transform .2s;}
 .m-x:hover{color:#B87333;transform:rotate(90deg);}
 .m-body{padding:26px 38px 34px;}
 .ci{display:grid;gap:13px;margin-bottom:20px;}
 .ci-r{display:flex;gap:13px;align-items:center;}
 .ci-ic{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(184,115,51,.14);display:flex;align-items:center;justify-content:center;background:rgba(184,115,51,.06);}
 .ci-ic svg{width:15px;height:15px;stroke:#B87333;fill:none;stroke-width:1.5;}
-.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2px;}
-.ci-v{font-size:.88rem;color:#fff;font-weight:300;}
+.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4);margin-bottom:2px;}
+.ci-v{font-size:.88rem;color:#1A1410;font-weight:400;}
 .fr{margin-bottom:12px;}
-.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:300;margin-bottom:5px;}
-.fi,.fta,.fsel{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(184,115,51,.14);padding:10px 13px;font-family:‘Outfit’,sans-serif;font-size:.86rem;font-weight:300;color:#fff;outline:none;transition:border-color .18s;cursor:none;}
-.fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.18);}
+.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4);font-weight:400;margin-bottom:5px;}
+.fi,.fta,.fsel{width:100%;background:#fff;border:1px solid rgba(0,0,0,.12);padding:10px 13px;font-family:‘Outfit’,sans-serif;font-size:.86rem;font-weight:300;color:#1A1410;outline:none;transition:border-color .18s;cursor:none;}
+.fi::placeholder,.fta::placeholder{color:rgba(0,0,0,.25);}
 .fi:focus,.fta:focus,.fsel:focus{border-color:#B87333;}
-.fta{resize:vertical;min-height:80px;}.fsel{color:#fff;cursor:none;}.fsel option{background:#141414;}
+.fta{resize:vertical;min-height:80px;}.fsel{color:#1A1410;cursor:none;}.fsel option{background:#fff;}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.m-hr{height:1px;background:rgba(184,115,51,.1);margin:18px 0;}
+.m-hr{height:1px;background:rgba(0,0,0,.08);margin:18px 0;}
 .sec{font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:#B87333;font-weight:400;display:flex;align-items:center;gap:10px;margin:20px 0 12px;}
 .sec::after{content:’’;flex:1;height:1px;background:rgba(184,115,51,.12);}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;}
-.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.6);font-weight:300;cursor:none;}
+.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(0,0,0,.65);font-weight:300;cursor:none;}
 .ci2 input{accent-color:#B87333;cursor:none;width:12px;height:12px;}
 .btn-w{width:100%;padding:13px;font-size:.68rem;letter-spacing:.18em;margin-top:10px;}
-.m-note{font-size:.58rem;color:rgba(255,255,255,.25);text-align:center;margin-top:10px;letter-spacing:.08em;}
+.m-note{font-size:.58rem;color:rgba(0,0,0,.35);text-align:center;margin-top:10px;letter-spacing:.08em;}
 .success{display:none;text-align:center;padding:40px 20px;}
 .success-check{width:54px;height:54px;border-radius:50%;border:1.5px solid #B87333;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#B87333;font-size:1.4rem;}
-.success-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:600;color:#fff;margin-bottom:8px;}
-.success-sub{font-size:.85rem;color:rgba(255,255,255,.35);font-weight:300;line-height:1.7;}
+.success-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:600;color:#1A1410;margin-bottom:8px;}
+.success-sub{font-size:.85rem;color:rgba(0,0,0,.4);font-weight:300;line-height:1.7;}
 .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
 .prod-card{padding:14px 16px;border:1px solid rgba(184,115,51,.12);border-left:2px solid #B87333;background:rgba(184,115,51,.04);}
-.prod-name{font-size:.78rem;font-weight:500;color:#fff;letter-spacing:.04em;margin-bottom:5px;}
-.prod-spec{font-size:.7rem;color:rgba(255,255,255,.3);font-weight:300;line-height:1.6;}
-.prod-note{font-size:.62rem;color:rgba(255,255,255,.25);border:1px solid rgba(184,115,51,.1);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
+.prod-name{font-size:.78rem;font-weight:500;color:#1A1410;letter-spacing:.04em;margin-bottom:5px;}
+.prod-spec{font-size:.7rem;color:rgba(0,0,0,.45);font-weight:300;line-height:1.6;}
+.prod-note{font-size:.62rem;color:rgba(0,0,0,.4);border:1px solid rgba(184,115,51,.12);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
 
 @media(max-width:768px){
 header{padding:0 20px;height:62px;}.logo-name{font-size:1.1rem;}
@@ -229,7 +229,8 @@ footer{height:auto;padding:10px 20px;}
     <div class="m-hr"></div>
     <div class="success" id="ct-ok"><div class="success-check">✓</div><div class="success-title">Message Sent</div><div class="success-sub">We'll respond within 24 hours.</div></div>
     <form id="ct-form">
-      <div class="fg2"><div class="fr"><label class="fl">Name</label><input class="fi" type="text" name="name" placeholder="Your name" required></div><div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="your@email.com" required></div></div>
+      <div class="fg2"><div class="fr"><label class="fl">Name</label><input class="fi" type="text" name="name" placeholder="Your name" required></div><div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="your@email.com"></div></div>
+      <div class="fr"><label class="fl">Phone / WhatsApp</label><input class="fi" type="tel" name="phone" placeholder="+91 …"></div>
       <div class="fr"><label class="fl">Message</label><textarea class="fta" name="message" placeholder="How can we help?"></textarea></div>
       <button type="submit" class="btn btn-s btn-w">Send Message</button>
     </form>
@@ -442,7 +443,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelect
 
 /* FORMS */
 document.getElementById('ct-form').addEventListener('submit',async function(e){
-  e.preventDefault();const btn=this.querySelector('button');btn.textContent='Sending…';btn.disabled=true;
+  e.preventDefault();
+  const email=this.querySelector('[name=email]').value.trim();
+  const phone=this.querySelector('[name=phone]') ? this.querySelector('[name=phone]').value.trim() : '';
+  if(!email && !phone){
+    alert('Please provide either an email address or phone number so we can reach you.');
+    return;
+  }
+  const btn=this.querySelector('button');btn.textContent='Sending…';btn.disabled=true;
   try{const res=await fetch('https://formspree.io/f/maqakpny',{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});
     if(res.ok){this.style.display='none';document.getElementById('ct-ok').style.display='block';}
     else{btn.textContent='Send Message';btn.disabled=false;}
