@@ -80,8 +80,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1E1A16;color:#fff;f
 /* Map SVG */
 #map-wrap{position:fixed;inset:0;z-index:0;background:linear-gradient(135deg,#1E1A16 0%,#1A1814 35%,#161820 65%,#141618 100%);}
 #map-wrap svg{width:100%;height:100%;}
-.land{fill:rgba(45,65,88,.35);stroke:rgba(255,255,255,.05);stroke-width:.4px;}
-.land-india{fill:rgba(184,115,51,.3);stroke:rgba(184,115,51,.4);stroke-width:1px;}
+.land{fill:rgba(45,65,88,.4);stroke:rgba(255,255,255,.06);stroke-width:.4px;}
+.land-india{fill:rgba(184,115,51,.22);stroke:#FFB347;stroke-width:3px;filter:drop-shadow(0 0 8px #FFB347) drop-shadow(0 0 16px #B87333);animation:indiaNeon 2s ease-in-out infinite;}
+@keyframes indiaNeon{
+0%,100%{stroke:#FFB347;stroke-width:3px;filter:drop-shadow(0 0 8px #FFB347) drop-shadow(0 0 16px #B87333);}
+50%{stroke:#FFD080;stroke-width:3.5px;filter:drop-shadow(0 0 12px #FFD080) drop-shadow(0 0 24px #C8893C);}
+}
 .graticule{fill:none;stroke:rgba(255,255,255,.025);stroke-width:.5px;}
 .route{stroke:rgba(184,115,51,.15);stroke-width:.8px;fill:none;stroke-dasharray:5 10;}
 
@@ -141,10 +145,10 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 .ci-r{display:flex;gap:13px;align-items:center;}
 .ci-ic{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(184,115,51,.14);display:flex;align-items:center;justify-content:center;background:rgba(184,115,51,.06);}
 .ci-ic svg{width:15px;height:15px;stroke:#B87333;fill:none;stroke-width:1.5;}
-.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4);margin-bottom:2px;}
+.ci-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.7);margin-bottom:2px;}
 .ci-v{font-size:.88rem;color:#1A1410;font-weight:400;}
 .fr{margin-bottom:12px;}
-.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.4);font-weight:400;margin-bottom:5px;}
+.fl{display:block;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.75);font-weight:500;margin-bottom:5px;}
 .fi,.fta,.fsel{width:100%;background:#fff;border:1px solid rgba(0,0,0,.12);padding:10px 13px;font-family:‘Outfit’,sans-serif;font-size:.86rem;font-weight:300;color:#1A1410;outline:none;transition:border-color .18s;cursor:none;}
 .fi::placeholder,.fta::placeholder{color:rgba(0,0,0,.25);}
 .fi:focus,.fta:focus,.fsel:focus{border-color:#B87333;}
@@ -154,27 +158,41 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 .sec{font-size:.52rem;letter-spacing:.26em;text-transform:uppercase;color:#B87333;font-weight:400;display:flex;align-items:center;gap:10px;margin:20px 0 12px;}
 .sec::after{content:’’;flex:1;height:1px;background:rgba(184,115,51,.12);}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;}
-.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(0,0,0,.65);font-weight:300;cursor:none;}
+.ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(0,0,0,.85);font-weight:400;cursor:none;}
 .ci2 input{accent-color:#B87333;cursor:none;width:12px;height:12px;}
 .btn-w{width:100%;padding:13px;font-size:.68rem;letter-spacing:.18em;margin-top:10px;}
-.m-note{font-size:.58rem;color:rgba(0,0,0,.35);text-align:center;margin-top:10px;letter-spacing:.08em;}
+.m-note{font-size:.58rem;color:rgba(0,0,0,.55);text-align:center;margin-top:10px;letter-spacing:.08em;}
 .success{display:none;text-align:center;padding:40px 20px;}
 .success-check{width:54px;height:54px;border-radius:50%;border:1.5px solid #B87333;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#B87333;font-size:1.4rem;}
 .success-title{font-family:‘Cormorant Garamond’,serif;font-size:1.6rem;font-weight:600;color:#1A1410;margin-bottom:8px;}
-.success-sub{font-size:.85rem;color:rgba(0,0,0,.4);font-weight:300;line-height:1.7;}
+.success-sub{font-size:.85rem;color:rgba(0,0,0,.7);font-weight:300;line-height:1.7;}
 .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
 .prod-card{padding:14px 16px;border:1px solid rgba(184,115,51,.12);border-left:2px solid #B87333;background:rgba(184,115,51,.04);}
 .prod-name{font-size:.78rem;font-weight:500;color:#1A1410;letter-spacing:.04em;margin-bottom:5px;}
-.prod-spec{font-size:.7rem;color:rgba(0,0,0,.45);font-weight:300;line-height:1.6;}
-.prod-note{font-size:.62rem;color:rgba(0,0,0,.4);border:1px solid rgba(184,115,51,.12);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
+.prod-spec{font-size:.7rem;color:rgba(0,0,0,.7);font-weight:300;line-height:1.6;}
+.prod-note{font-size:.62rem;color:rgba(0,0,0,.65);border:1px solid rgba(184,115,51,.12);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
 
 @media(max-width:768px){
-header{padding:0 20px;height:62px;}.logo-name{font-size:1.1rem;}
-.btn{padding:8px 13px;font-size:.6rem;}.hero{padding:0 20px;}
-.h-tags{gap:5px;}.tag{padding:6px 10px;font-size:.5rem;}
-footer{height:auto;padding:10px 20px;}
+header{padding:0 16px;height:58px;}
+.logo-name{font-size:1rem;letter-spacing:.22em;}
+.logo-sub{font-size:.42rem;}
+.btn{padding:7px 12px;font-size:.55rem;letter-spacing:.1em;}
+.hero{padding:0 16px;}
+.h-name{font-size:clamp(3rem,18vw,5rem);letter-spacing:.1em;}
+.h-sup{font-size:.5rem;letter-spacing:.28em;}
+.h-desc{font-size:.88rem;}
+.h-div{margin:12px 0 14px;}
+.h-line{width:32px;}
+.h-tags{gap:5px;margin-top:18px;}
+.tag{padding:6px 12px;font-size:.52rem;letter-spacing:.14em;color:rgba(255,255,255,.6);border-color:rgba(184,115,51,.3);}
+footer{height:auto;padding:10px 16px;}
+.ft-certs{gap:4px;}
 .m-band{padding:18px 20px 14px;}.m-body{padding:18px 20px 26px;}
 .fg2{grid-template-columns:1fr;}.cg{grid-template-columns:1fr;}.prod-grid{grid-template-columns:1fr;}
+}
+@media(max-width:380px){
+.h-name{font-size:2.8rem;}
+.btn{padding:6px 10px;font-size:.52rem;}
 }
 </style>
 
@@ -352,14 +370,18 @@ document.querySelectorAll('button,input,select,textarea,label,.tag').forEach(el=
   d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
     const countries = topojson.feature(world, world.objects.countries);
 
-    // Draw all countries
+    // Draw all countries except India first
     svg.selectAll('.land')
-      .data(countries.features)
+      .data(countries.features.filter(d => d.id !== 356))
       .enter().append('path')
-      .attr('class', d => {
-        // India is country id 356
-        return d.id === 356 ? 'land land-india' : 'land';
-      })
+      .attr('class', 'land')
+      .attr('d', path);
+
+    // Draw India last so it's on top
+    svg.selectAll('.land-india')
+      .data(countries.features.filter(d => d.id === 356))
+      .enter().append('path')
+      .attr('class', 'land land-india')
       .attr('d', path);
 
     // Draw routes
