@@ -14,6 +14,11 @@
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="AqlvqPH3smjK2Zigr9T5I0vNlOHxFgU1nUSIX1gMsTM" />
 
+<!-- Favicon / brand mark for search results & browser tabs -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#1E1A16">
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTM1B9W6H1"></script>
 <script>
@@ -48,6 +53,7 @@
   "@type": "Organization",
   "name": "Arkline International Pvt. Ltd.",
   "url": "https://www.arklineinternational.com",
+  "logo": "https://www.arklineinternational.com/favicon.svg",
   "description": "International importer of copper, aluminium, brass and nickel. Mumbai-based metal trading company serving manufacturers across India.",
   "foundingLocation": "Mumbai, India",
   "address": {
@@ -179,74 +185,33 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 .prod-spec{font-size:.7rem;color:rgba(0,0,0,.7);font-weight:300;line-height:1.6;}
 .prod-note{font-size:.62rem;color:rgba(0,0,0,.65);border:1px solid rgba(184,115,51,.12);padding:12px 14px;margin-bottom:16px;line-height:1.7;}
 
-/* Floating action buttons — WhatsApp + Call */
-.fab-stack{position:fixed;bottom:22px;right:22px;z-index:400;display:flex;flex-direction:column;gap:12px;align-items:flex-end;}
-.fab{
-  width:54px;height:54px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  text-decoration:none;
-  box-shadow:0 8px 24px rgba(0,0,0,.32),0 2px 6px rgba(0,0,0,.24);
-  transition:transform .2s ease,box-shadow .2s ease;
-  border:none;
-}
-.fab:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.4),0 2px 6px rgba(0,0,0,.28);}
-.fab svg{width:26px;height:26px;fill:#fff;}
-.fab-wa{background:#25D366;animation:fabPulse 2.4s ease-in-out infinite;}
-.fab-call{background:#B87333;}
-@keyframes fabPulse{
-  0%,100%{box-shadow:0 8px 24px rgba(37,211,102,.35),0 0 0 0 rgba(37,211,102,.6);}
-  50%{box-shadow:0 8px 24px rgba(37,211,102,.45),0 0 0 14px rgba(37,211,102,0);}
-}
-.fab-label{
-  position:absolute;
-  right:66px;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(20,18,14,.92);
-  color:#fff;
-  font-family:'Outfit',sans-serif;
-  font-size:.68rem;
-  font-weight:500;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  padding:8px 14px;
-  white-space:nowrap;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease;
-  border:1px solid rgba(184,115,51,.3);
-}
-.fab-wrap{position:relative;}
-.fab-wrap:hover .fab-label{opacity:1;}
-
 @media(max-width:768px){
-.fab-stack{bottom:16px;right:16px;gap:10px;}
-.fab{width:50px;height:50px;}
-.fab svg{width:24px;height:24px;}
-.fab-label{display:none;}
-}
-
-@media(max-width:768px){
-header{padding:0 16px;height:58px;}
-.logo-name{font-size:1rem;letter-spacing:.22em;}
-.logo-sub{font-size:.42rem;}
-.btn{padding:7px 12px;font-size:.55rem;letter-spacing:.1em;}
-.hero{padding:0 16px;}
-.h-name{font-size:clamp(3rem,18vw,5rem);letter-spacing:.1em;}
-.h-sup{font-size:.5rem;letter-spacing:.28em;}
-.h-desc{font-size:.88rem;}
-.h-div{margin:12px 0 14px;}
+html,body{overflow:auto;height:auto;min-height:100vh;}
+#shell{height:auto;min-height:100vh;}
+#map-wrap{position:fixed;height:100vh;}
+header{padding:0 18px;height:64px;flex-wrap:wrap;gap:8px;}
+.logo-name{font-size:1.1rem;letter-spacing:.22em;}
+.logo-sub{font-size:.44rem;margin-top:3px;}
+.hbtns{gap:8px;}
+.btn{padding:9px 14px;font-size:.58rem;letter-spacing:.14em;}
+.hero{padding:36px 20px;min-height:calc(100vh - 64px - 76px);}
+.h-name{font-size:clamp(3.2rem,17vw,5.2rem);letter-spacing:.1em;}
+.h-sup{font-size:.52rem;letter-spacing:.3em;margin-bottom:12px;}
+.h-desc{font-size:.92rem;line-height:1.7;max-width:340px;}
+.h-div{margin:14px 0 16px;}
 .h-line{width:32px;}
-.h-tags{gap:5px;margin-top:18px;}
-.tag{padding:6px 12px;font-size:.52rem;letter-spacing:.14em;color:rgba(255,255,255,.6);border-color:rgba(184,115,51,.3);}
-footer{height:auto;padding:10px 16px;}
-.ft-certs{gap:4px;}
+.h-tags{gap:8px;margin-top:24px;flex-wrap:wrap;justify-content:center;}
+.tag{padding:9px 16px;font-size:.55rem;letter-spacing:.16em;color:rgba(255,255,255,.72);border-color:rgba(184,115,51,.35);}
+footer{height:auto;padding:18px 16px;gap:6px;}
+.ft-certs{gap:6px;font-size:.9em;}
+.ft-copy{margin-top:4px;}
 .m-band{padding:18px 20px 14px;}.m-body{padding:18px 20px 26px;}
 .fg2{grid-template-columns:1fr;}.cg{grid-template-columns:1fr;}.prod-grid{grid-template-columns:1fr;}
 }
 @media(max-width:380px){
-.h-name{font-size:2.8rem;}
-.btn{padding:6px 10px;font-size:.52rem;}
+.h-name{font-size:2.9rem;}
+.btn{padding:8px 12px;font-size:.54rem;}
+.hero{padding:28px 16px;}
 }
 </style>
 
@@ -260,11 +225,7 @@ footer{height:auto;padding:10px 16px;}
   <header>
     <div><div class="logo-name">ARKLINE</div><div class="logo-sub">Mumbai, India</div></div>
     <div class="hbtns">
-      <a href="tel:+918898981378" class="btn btn-o" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        +91 88989 81378
-      </a>
-      <button class="btn btn-o" onclick="show('ct')">Contact</button>
+      <button class="btn btn-o" onclick="show('ct')">Contact Us</button>
       <button class="btn btn-s" onclick="show('rfq')">Request Quotation</button>
     </div>
   </header>
@@ -533,22 +494,6 @@ document.getElementById('rfq-form').addEventListener('submit',async function(e){
   }catch{btn.textContent='Submit Quotation Request';btn.disabled=false;}
 });
 </script>
-
-<!-- Floating action buttons — WhatsApp + Call -->
-<div class="fab-stack" aria-hidden="false">
-  <div class="fab-wrap">
-    <a class="fab fab-wa" href="https://wa.me/918898981378?text=Hi%20Arkline%2C%20I%27d%20like%20to%20request%20a%20quotation%20for%3A%0A%0AProduct%3A%20%0AQuantity%3A%20%0ADelivery%20Location%3A%20" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" onclick="if(typeof gtag==='function'){gtag('event','whatsapp_click',{event_category:'engagement'});}">
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.003 3C9.374 3 4 8.373 4 15c0 2.377.696 4.591 1.893 6.451L4 28l6.72-1.762A11.94 11.94 0 0016.003 27C22.632 27 28 21.627 28 15S22.632 3 16.003 3zm0 21.8a9.79 9.79 0 01-5.001-1.367l-.359-.213-3.994 1.048 1.066-3.893-.234-.4A9.788 9.788 0 016.2 15C6.2 9.588 10.591 5.2 16.003 5.2S25.8 9.588 25.8 15c0 5.412-4.391 9.8-9.797 9.8zm5.379-7.335c-.294-.147-1.742-.86-2.013-.958-.27-.098-.467-.147-.663.147-.196.294-.762.958-.934 1.154-.172.196-.343.221-.637.074-.294-.147-1.243-.458-2.368-1.461-.875-.781-1.466-1.746-1.638-2.04-.172-.294-.018-.453.129-.599.132-.132.294-.343.441-.515.147-.172.196-.294.294-.49.098-.196.049-.368-.025-.515-.074-.147-.663-1.599-.909-2.19-.239-.575-.482-.497-.663-.506l-.564-.01c-.196 0-.515.074-.785.368s-1.03 1.005-1.03 2.449 1.055 2.842 1.202 3.038c.147.196 2.075 3.168 5.028 4.442.703.303 1.252.484 1.68.62.706.224 1.348.192 1.855.117.566-.085 1.742-.712 1.988-1.4.245-.688.245-1.278.172-1.4-.074-.123-.27-.196-.564-.343z"/></svg>
-    </a>
-    <span class="fab-label">Chat on WhatsApp</span>
-  </div>
-  <div class="fab-wrap">
-    <a class="fab fab-call" href="tel:+918898981378" aria-label="Call Arkline" onclick="if(typeof gtag==='function'){gtag('event','call_click',{event_category:'engagement'});}">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="#fff" stroke="none"/></svg>
-    </a>
-    <span class="fab-label">Call Now</span>
-  </div>
-</div>
 
 </body>
 </html>
