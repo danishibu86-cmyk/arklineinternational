@@ -127,7 +127,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 5
 .logo-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.8rem;letter-spacing:.22em;color:#fff;line-height:1;}
 .logo-sub{font-size:.55rem;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:8px;font-weight:400;}
 .hbtns{display:flex;gap:10px;}
-.btn{font-family:'Outfit',sans-serif;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;border:none;padding:10px 22px;transition:all .22s ease;}
+.btn{font-family:'Outfit',sans-serif;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;border:none;padding:10px 22px;transition:all .22s ease;cursor:pointer;}
+.btn-short{display:none;}
 .btn-o{background:transparent;border:1px solid rgba(184,115,51,.3);color:rgba(255,255,255,.7);}
 .btn-o:hover{border-color:#B87333;color:#B87333;}
 .btn-s{background:#B87333;color:#fff;box-shadow:0 0 28px rgba(184,115,51,.28);}
@@ -215,31 +216,35 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 html,body{overflow:auto;height:auto;min-height:100vh;}
 #shell{height:auto;min-height:100vh;}
 #map-wrap{position:fixed;height:100vh;}
-header{padding:0 18px;height:64px;flex-wrap:wrap;gap:8px;}
-.logo-wrap{gap:10px;}
-.logo-img{height:40px;width:40px;}
-.logo-name{font-size:1.4rem;letter-spacing:.16em;}
-.logo-sub{font-size:.48rem;margin-top:5px;letter-spacing:.28em;}
-.hbtns{gap:8px;}
-.btn{padding:9px 14px;font-size:.58rem;letter-spacing:.14em;}
-.hero{padding:36px 20px;min-height:calc(100vh - 64px - 76px);}
-.h-name{font-size:clamp(3.2rem,17vw,5.2rem);letter-spacing:.1em;}
-.h-sup{font-size:.52rem;letter-spacing:.3em;margin-bottom:12px;}
-.h-desc{font-size:.92rem;line-height:1.7;max-width:340px;}
-.h-div{margin:14px 0 16px;}
-.h-line{width:32px;}
-.h-tags{gap:8px;margin-top:24px;flex-wrap:wrap;justify-content:center;}
-.tag{padding:9px 16px;font-size:.55rem;letter-spacing:.16em;color:rgba(255,255,255,.72);border-color:rgba(184,115,51,.35);}
-footer{height:auto;padding:18px 16px;gap:6px;}
-.ft-certs{gap:6px;font-size:.9em;}
+header{padding:0 14px;height:60px;gap:6px;flex-wrap:nowrap;}
+.logo-name{font-size:1.15rem;letter-spacing:.14em;line-height:1;}
+.logo-sub{font-size:.42rem;margin-top:4px;letter-spacing:.24em;}
+.hbtns{gap:6px;flex-shrink:0;}
+.btn{padding:8px 12px;font-size:.55rem;letter-spacing:.12em;white-space:nowrap;}
+.btn-full{display:none;}
+.btn-short{display:inline;}
+.hero{padding:48px 20px 40px;}
+.h-name{font-size:clamp(3rem,15vw,4.6rem);letter-spacing:.1em;}
+.h-sup{font-size:.5rem;letter-spacing:.28em;margin-bottom:10px;}
+.h-sup::before,.h-sup::after{width:22px;}
+.h-desc{font-size:.9rem;line-height:1.7;max-width:320px;margin:0 auto;}
+.h-div{margin:12px 0 14px;}
+.h-line{width:28px;}
+.h-tags{gap:10px;margin-top:22px;justify-content:center;}
+.tag{padding:10px 18px;font-size:.56rem;letter-spacing:.18em;color:rgba(255,255,255,.85);border-color:rgba(184,115,51,.5);background:rgba(20,18,14,.6);}
+footer{height:auto;padding:16px 14px;gap:6px;flex-direction:column;text-align:center;}
+.ft-certs{gap:6px;font-size:.9em;justify-content:center;flex-wrap:wrap;}
 .ft-copy{margin-top:4px;}
+.ci-phone .ci-v{gap:8px;font-size:.85rem;}
+.ci-wa{padding:4px 10px;font-size:.6rem;}
 .m-band{padding:18px 20px 14px;}.m-body{padding:18px 20px 26px;}
 .fg2{grid-template-columns:1fr;}.cg{grid-template-columns:1fr;}.prod-grid{grid-template-columns:1fr;}
 }
-@media(max-width:380px){
-.h-name{font-size:2.9rem;}
-.btn{padding:8px 12px;font-size:.54rem;}
-.hero{padding:28px 16px;}
+@media(max-width:400px){
+.h-name{font-size:2.7rem;letter-spacing:.08em;}
+.logo-sub{display:none;}
+.btn{padding:7px 10px;font-size:.5rem;}
+.hero{padding:36px 14px 32px;}
 }
 </style>
 
@@ -253,8 +258,8 @@ footer{height:auto;padding:18px 16px;gap:6px;}
   <header>
     <div><div class="logo-name">ARKLINE</div><div class="logo-sub">Mumbai, India</div></div>
     <div class="hbtns">
-      <button class="btn btn-o" onclick="show('ct')">Contact Us</button>
-      <button class="btn btn-s" onclick="show('rfq')">Request Quotation</button>
+      <button class="btn btn-o" onclick="show('ct')"><span class="btn-full">Contact Us</span><span class="btn-short">Contact</span></button>
+      <button class="btn btn-s" onclick="show('rfq')"><span class="btn-full">Request Quotation</span><span class="btn-short">Quote</span></button>
     </div>
   </header>
   <main class="hero">
