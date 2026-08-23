@@ -213,13 +213,12 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 .iti__country.iti__highlight{background:rgba(184,115,51,.12);}
 
 @media(max-width:768px){
-html,body{overflow:auto;height:auto;min-height:auto;}
-#shell{height:auto;min-height:auto;}
-#map-wrap{position:fixed;height:100vh;opacity:.32;}
-.vignette{background:radial-gradient(ellipse at center,rgba(14,12,10,.45) 0%,rgba(14,12,10,.75) 60%,rgba(14,12,10,.92) 100%);}
-.land-india{animation:none !important;filter:none !important;stroke:rgba(184,115,51,.55) !important;stroke-width:1.2px !important;}
+html,body{overflow:auto;height:auto;min-height:100vh;}
+#shell{height:auto;min-height:100vh;}
+#map-wrap{position:fixed;height:100vh;opacity:.55;}
+.land-india{animation:none !important;filter:none !important;stroke:rgba(184,115,51,.6) !important;stroke-width:1.4px !important;}
 header{padding:0 14px;height:60px;gap:6px;flex-wrap:nowrap;}
-.hero{flex:0 0 auto;justify-content:flex-start;padding:32px 20px 28px;}
+.hero{flex:1;justify-content:flex-start;padding:36px 20px 28px;}
 .logo-name{font-size:1.15rem;letter-spacing:.14em;line-height:1;}
 .logo-sub{font-size:.42rem;margin-top:4px;letter-spacing:.24em;}
 .hbtns{gap:6px;flex-shrink:0;}
