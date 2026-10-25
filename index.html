@@ -85,12 +85,11 @@
     "name": "Copper and Aluminium Products",
     "itemListElement": [
       {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Copper Cathodes Grade A (99.99%)"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Copper Cathodes EQ Grade (99.97%)"}},
       {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Copper Sheets, Plates and Strips"}},
       {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Copper Scrap Millberry / Berry"}},
       {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Aluminium Sheets, Coils and Extrusions"}},
       {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Aluminium UBC Scrap (Used Beverage Cans)"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Aluminium Foundry Alloy ADC12 / A380"}}
+      {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Aluminium Alloy Ingots"}}
     ]
   }
 }
@@ -197,6 +196,7 @@ footer{display:flex;flex-direction:column;align-items:center;justify-content:cen
 .ci2{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(0,0,0,.85);font-weight:400;}
 .ci2 input{accent-color:#B87333;width:12px;height:12px;}
 .btn-w{width:100%;padding:13px;font-size:.68rem;letter-spacing:.18em;margin-top:10px;}
+.req{color:#B87333;}
 .m-note{font-size:.58rem;color:rgba(0,0,0,.55);text-align:center;margin-top:10px;letter-spacing:.08em;}
 .success{display:none;text-align:center;padding:40px 20px;}
 .success-check{width:54px;height:54px;border-radius:50%;border:1.5px solid #B87333;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#B87333;font-size:1.4rem;}
@@ -273,7 +273,8 @@ footer{height:auto;padding:16px 14px;gap:6px;flex-direction:column;text-align:ce
     <div><div class="logo-name">ARKLINE</div><div class="logo-sub">Mumbai, India</div></div>
     <div class="hbtns">
       <button class="btn btn-o" onclick="show('ct')"><span class="btn-full">Contact Us</span><span class="btn-short">Contact</span></button>
-      <button class="btn btn-s" onclick="show('rfq')"><span class="btn-full">Request Quotation</span><span class="btn-short">Quote</span></button>
+      <a class="btn btn-o" href="sell.html" style="text-decoration:none;"><span class="btn-full">Sell to Us</span><span class="btn-short">Sell</span></a>
+      <a class="btn btn-s" href="buy.html" style="text-decoration:none;"><span class="btn-full">Buy from Us</span><span class="btn-short">Buy</span></a>
     </div>
   </header>
   <main class="hero">
@@ -317,48 +318,11 @@ footer{height:auto;padding:16px 14px;gap:6px;flex-direction:column;text-align:ce
   </div>
 </div></div>
 
-<!-- RFQ -->
-
-<div class="bd" id="md-rfq"><div class="modal">
-  <div class="m-band"><button class="m-x" onclick="hide('rfq')">×</button><div class="m-title">Request a Quotation</div></div>
-  <div class="m-body">
-    <div class="success" id="rfq-ok"><div class="success-check">✓</div><div class="success-title">Request Received</div><div class="success-sub">Our team responds within 24 hours.</div></div>
-    <form id="rfq-form">
-      <div class="fg2"><div class="fr"><label class="fl">Company</label><input class="fi" type="text" name="company" placeholder="Company name" required></div><div class="fr"><label class="fl">Contact Person</label><input class="fi" type="text" name="name" placeholder="Full name" required></div></div>
-      <div class="fg2"><div class="fr"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="Email" required></div><div class="fr"><label class="fl">WhatsApp / Phone</label><input class="fi phone-intl" type="tel" name="phone" placeholder="Phone number" required></div></div>
-      <div class="sec">Copper</div>
-      <div class="cg">
-        <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes Grade A"> Cathodes — Grade A (99.99%)</label>
-        <label class="ci2"><input type="checkbox" name="product" value="Copper Cathodes EQ Grade"> Cathodes — EQ Grade (99.97%)</label>
-        <label class="ci2"><input type="checkbox" name="product" value="Copper Sheets Plates Strips"> Sheets, Plates, Strips</label>
-        <label class="ci2"><input type="checkbox" name="product" value="Copper Scrap Millberry Berry"> Scrap — Millberry / Berry</label>
-      </div>
-      <div class="sec">Aluminium</div>
-      <div class="cg">
-        <label class="ci2"><input type="checkbox" name="product" value="Aluminium Sheets Coils Extrusions"> Sheets, Coils, Extrusions</label>
-        <label class="ci2"><input type="checkbox" name="product" value="Aluminium UBC Scrap"> Scrap — UBC (Used Beverage Cans)</label>
-        <label class="ci2"><input type="checkbox" name="product" value="Foundry Alloy ADC12 A380"> Foundry Alloy — ADC12 / A380 / other grades</label>
-      </div>
-      <div class="sec">Shipment</div>
-      <div class="fg2">
-        <div class="fr"><label class="fl">Quantity (MT/Month)</label><select class="fsel" name="quantity"><option value="">Select…</option><option>2–5 MT</option><option>5–10 MT</option><option>10–25 MT</option><option>25–50 MT</option><option>50–100 MT</option><option>100+ MT</option></select></div>
-        <div class="fr"><label class="fl">Frequency</label><select class="fsel" name="frequency"><option value="">Select…</option><option>One-time</option><option>Monthly</option><option>Quarterly</option><option>Annual Contract</option></select></div>
-      </div>
-      <div class="fg2">
-        <div class="fr"><label class="fl">Expected Price (USD/MT)</label><input class="fi" type="text" name="price" placeholder="Target price"></div>
-        <div class="fr"><label class="fl">Delivery Destination</label><input class="fi" type="text" name="delivery" placeholder="City or port, India"></div>
-      </div>
-      <div class="fr"><label class="fl">Specifications</label><textarea class="fta" name="specs" style="min-height:56px" placeholder="Purity, certifications, Incoterms…"></textarea></div>
-      <button type="submit" class="btn btn-s btn-w">Submit Quotation Request</button>
-      <p class="m-note">Response within 24 hours · Mumbai, India</p>
-    </form>
-  </div>
-</div></div>
 
 <!-- COPPER -->
 
-<div class="bd" id="md-copper"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('copper')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Copper</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Cathodes</div><div class="prod-spec">Grade A — 99.99%<br>EQ Grade — 99.97%</div></div><div class="prod-card"><div class="prod-name">Sheets &amp; Plates</div><div class="prod-spec">99.9% pure, non-scrap<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Wire Rods</div><div class="prod-spec">CCR / ETP cast<br>OFHC Oxygen-Free</div></div><div class="prod-card"><div class="prod-name">Copper Scrap</div><div class="prod-spec">ISRI Berry — 99% Cu<br>Millberry — bare bright</div></div></div><div class="prod-note">2–100 MT/month · SGS inspection available</div><button class="btn btn-s btn-w" onclick="hide('copper');show('rfq')">Request Quotation</button></div></div></div>
-<div class="bd" id="md-aluminium"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('aluminium')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Aluminium</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Primary Ingots</div><div class="prod-spec">P1020 — LME Grade<br>A7 — 99.7%</div></div><div class="prod-card"><div class="prod-name">Billets &amp; Slabs</div><div class="prod-spec">Wire rods, extrusions<br>Non-scrap, primary</div></div><div class="prod-card"><div class="prod-name">Sheets &amp; Coils</div><div class="prod-spec">Foils also available<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Al Scrap</div><div class="prod-spec">UBC — Used Beverage Cans<br>ISRI Tense — 90–95%</div></div></div><div class="prod-note">2–100 MT/month · SGS inspection available</div><button class="btn btn-s btn-w" onclick="hide('aluminium');show('rfq')">Request Quotation</button></div></div></div>
+<div class="bd" id="md-copper"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('copper')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Copper</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Cathodes</div><div class="prod-spec">Grade A — 99.99%</div></div><div class="prod-card"><div class="prod-name">Sheets &amp; Plates</div><div class="prod-spec">99.9% pure, non-scrap<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Wire Rods</div><div class="prod-spec">CCR / ETP cast<br>OFHC Oxygen-Free</div></div><div class="prod-card"><div class="prod-name">Copper Scrap</div><div class="prod-spec">ISRI Berry — 99% Cu<br>Millberry — bare bright</div></div></div><div class="prod-note">2–100 MT/month · SGS inspection available</div><button class="btn btn-s btn-w" onclick="hide('copper');location.href='buy.html'">Request Quotation</button></div></div></div>
+<div class="bd" id="md-aluminium"><div class="modal"><div class="m-band"><button class="m-x" onclick="hide('aluminium')">×</button><div class="m-eye">What We Supply</div><div class="m-title">Aluminium</div></div><div class="m-body"><div class="prod-grid"><div class="prod-card"><div class="prod-name">Primary Ingots</div><div class="prod-spec">P1020 — LME Grade<br>A7 — 99.7%</div></div><div class="prod-card"><div class="prod-name">Billets &amp; Slabs</div><div class="prod-spec">Wire rods, extrusions<br>Non-scrap, primary</div></div><div class="prod-card"><div class="prod-name">Sheets &amp; Coils</div><div class="prod-spec">Foils also available<br>As per specification</div></div><div class="prod-card"><div class="prod-name">Al Scrap</div><div class="prod-spec">UBC — Used Beverage Cans<br>ISRI Tense — 90–95%</div></div></div><div class="prod-note">2–100 MT/month · SGS inspection available</div><button class="btn btn-s btn-w" onclick="hide('aluminium');location.href='buy.html'">Request Quotation</button></div></div></div>
 
 <script>
 /* D3 WORLD MAP */
@@ -496,7 +460,6 @@ footer{height:auto;padding:16px 14px;gap:6px;flex-direction:column;text-align:ce
 function show(id){
   document.getElementById('md-'+id).classList.add('on');
   if(id==='ct'){document.getElementById('ct-form').style.display='block';document.getElementById('ct-ok').style.display='none';}
-  if(id==='rfq'){document.getElementById('rfq-form').style.display='block';document.getElementById('rfq-ok').style.display='none';document.querySelector('#md-rfq .m-band').style.display='flex';}
 }
 function hide(id){document.getElementById('md-'+id).classList.remove('on');}
 function showProduct(m){show(m);}
@@ -517,15 +480,6 @@ document.getElementById('ct-form').addEventListener('submit',async function(e){
     if(res.ok){this.style.display='none';document.getElementById('ct-ok').style.display='block';}
     else{btn.textContent='Send Message';btn.disabled=false;}
   }catch{btn.textContent='Send Message';btn.disabled=false;}
-});
-document.getElementById('rfq-form').addEventListener('submit',async function(e){
-  e.preventDefault();
-  if(!this.querySelector('input[name=product]:checked')){alert('Please select at least one product.');return;}
-  const btn=this.querySelector('button[type=submit]');btn.textContent='Submitting…';btn.disabled=true;
-  try{const res=await fetch('https://formspree.io/f/maqakpny',{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});
-    if(res.ok){this.style.display='none';document.getElementById('rfq-ok').style.display='block';document.querySelector('#md-rfq .m-band').style.display='none';}
-    else{btn.textContent='Submit Quotation Request';btn.disabled=false;}
-  }catch{btn.textContent='Submit Quotation Request';btn.disabled=false;}
 });
 </script>
 
